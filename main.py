@@ -2,7 +2,7 @@ import os, discord, random
 
 from discord.ext import commands
 
-TOKEN = os.environ('DISCORD_TOKEN')
+TOKEN = os.environ('DISCORD_TOKEN') 
 GUILD = os.environ('DISCORD_GUILD')
 WCI = os.environ('WELCOME_CHANNEL_ID')
 RCI = os.environ('RULES_CHANNEL_ID')
