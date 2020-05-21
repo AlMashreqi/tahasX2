@@ -32,7 +32,7 @@ async def on_member_remove(member):
     await channel.send(leaveMessage)
     print(f'Leave message sent for {member}.....')
         
-@bot.command(name = 'introduce', help = 'Responds with Intoduction')
+@bot.command(name = 'introduce', help = 'Responds with Intoduction') 
 async def nine_nine(ctx):
     response = "Hey I am TahasX! I was created by Sauood. Written in Python"
     await ctx.send(response)
