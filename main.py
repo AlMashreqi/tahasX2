@@ -2,13 +2,13 @@ import os, discord, random
 
 from discord.ext import commands
 
-global was_kick_ban = False
-
 TOKEN = os.environ['DISCORD_TOKEN'] 
 GUILD = os.environ['DISCORD_GUILD']
 WCI = os.environ['WELCOME_CHANNEL_ID']
 RCI = os.environ['RULES_CHANNEL_ID']
 GCI = os.environ['GENERAL_CHANNEL_ID']
+
+global was_kick_ban = False
 
 bot = commands.Bot(command_prefix='0')
 
