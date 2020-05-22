@@ -29,13 +29,13 @@ async def on_member_join(member):
 
 @bot.event
 async def on_member_remove(member):
+    global was_kick_ban
     if not was_kick_ban:
         channel = bot.get_channel(int(GCI))
         leaveMessage = f'{member.mention} has Left the Server.\nIt was good having you here'
         await channel.send(leaveMessage)
         print(f'Leave message sent for {member}.....')
     else:
-        global was_kick_ban
         was_kick_ban = False
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction') 
