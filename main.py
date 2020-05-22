@@ -15,6 +15,7 @@ bot = commands.Bot(command_prefix='0')
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
+    await bot.change_presence(activity=discord.activity(type=discord.ActivityType.watching, name='some commands'))
 
 @bot.event
 async def on_member_join(member):
