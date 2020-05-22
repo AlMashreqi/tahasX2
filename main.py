@@ -8,7 +8,7 @@ WCI = os.environ['WELCOME_CHANNEL_ID']
 RCI = os.environ['RULES_CHANNEL_ID']
 GCI = os.environ['GENERAL_CHANNEL_ID']
 
-global was_kick_ban = False
+was_kick_ban = False
 
 bot = commands.Bot(command_prefix='0')
 
@@ -35,7 +35,7 @@ async def on_member_remove(member):
         await channel.send(leaveMessage)
         print(f'Leave message sent for {member}.....')
     else:
-        was_kick_ban = False
+        global was_kick_ban = False
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction') 
 async def nine_nine(ctx):
@@ -56,7 +56,7 @@ async def kick(ctx, member: discord.Member, reason = 'unspecified'):
         await ctx.channel.send("You cannot kick yourself!")
         return
     await member.kick(reason=reason)
-    was_kick_ban = True
+    global was_kick_ban = True
     channel = bot.get_channel(int(GCI))
     kickMessage = f'{member.mention} has been kicked from the Server. Reason: {reason}'
     await channel.send(kickMessage)
@@ -70,7 +70,7 @@ async def ban(ctx, member: discord.Member, reason = 'unspecified'):
         await ctx.channel.send("You cannot ban yourself")
         return  
     await member.ban(reason=reason)
-    was_kick_ban = True
+    global was_kick_ban = True
     channel = bot.get_channel(int(GCI))
     banMessage = f'{member.mention} has been banned from the Server. Reason: {reason}'
     await channel.send(banMessage)
