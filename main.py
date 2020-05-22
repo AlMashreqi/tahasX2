@@ -42,7 +42,7 @@ async def introduce(ctx):
 
 @bot.command(name = 'ping', help = 'gives the latency of TahasX')
 async def ping(ctx):
-    await ctx.send(f'Pong {round(bot.latency * 1000)ms}')
+    await ctx.send(f'Pong {round(bot.latency * 1000)}ms')
     
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
 async def roll(ctx):
