@@ -87,34 +87,19 @@ async def ban(ctx, member: discord.Member, *, reason = 'unspecified'):
 
 @bot.command(name = 'unban', help = 'unbans a banned user')
 @commands.has_permissions(ban_members=True)
-async def unban(ctx, user, reason = 'unspecified'):
-    try:
-        user = await commands.converter.UserConverter().convert(ctx, user)
-        print(f'user found as {user}...')
-    except:
-        await ctx.send("Error: user could not be found in ban list!")
-        return
+async def unban(ctx, *, member):
+    banned_users = await ctx.guild.bans()
+    member_name, member_discriminator = member.split('#')
 
-    if user == None or user == ctx.message.author:
-        await ctx.channel.send("You cannot unban yourself")
-        return
-
-    try:
-        bans = tuple(ban_entry.user for ban_entry in await ctx.guild.bans())
-        if user in bans:
-            await ctx.guild.unban(user, reason="Responsible moderator: "+ str(ctx.author))
-        else:
-            await ctx.send("User not banned!")
+    for ban_entry in banned_users:
+        user = ban_entry.user
+        if(user.name, user.discriminator) == (member_name, member_discriminator):
+            await ctx.guild.unban(user)
+            await ctx.send(f'Unbanned {user.mention}')
+            print(f'Unban message sent for {user.mention}....')
             return
-    except:
-        await ctx.send("Unbanning failed!")
-        return
-
-    await ctx.guild.unban(user)
-    channel = bot.get_channel(int(GCI))
-    unbanMessage = f'{user} has been unbanned. Reason: {reason}'
-    await channel.send(unbanMessage)
-    print(f'UnBan message sent for {user}......')
+    ctx.send(f'User was not found!')
+    print('User was not Found....')
 
 @bot.event
 async def on_error(event, *args, **kwargs):
