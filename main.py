@@ -40,11 +40,6 @@ async def nine_nine(ctx):
     await ctx.send(response)
     print("Response sent....")
     
-@bot.command(name = 'startharvest', help = 'starts harvest')
-async def startharvest(ctx):
-    await ctx.send('.timely')
-    await ctx.send('started harverst')
-
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
 async def roll(ctx):
     dice = str(random.choice(range(1, 7)))
