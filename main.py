@@ -35,10 +35,14 @@ async def on_member_remove(member):
         was_kick_ban = False
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction') 
-async def nine_nine(ctx):
+async def introduce(ctx):
     response = "Hey I am TahasX! I was created by Sauood. Written in Python"
     await ctx.send(response)
     print("Response sent....")
+
+@bot.command(name = 'ping', help = 'gives the latency of TahasX')
+async def ping(ctx):
+    await ctx.send(f'Pong {round(bot.latency * 1000)ms}')
     
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
 async def roll(ctx):
