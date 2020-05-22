@@ -53,7 +53,7 @@ async def roll(ctx):
 @bot.command(name = 'clear', help = 'Clears a certian amount')
 async def clear(ctx, amount = 5):
     await ctx.channel.purge(limit = amount + 1)
-    ctx.channel.send(f'Cleared {amount} messages!')
+    await ctx.channel.send(f'Cleared {amount} messages!')
     print(f'{amount} messages Cleared')
 
 @bot.command(name = 'kick', help = 'kicks the user')
