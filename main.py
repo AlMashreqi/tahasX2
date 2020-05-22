@@ -49,6 +49,12 @@ async def roll(ctx):
     dice = str(random.choice(range(1, 7)))
     await ctx.send(', '.join(dice))
     print('Dice rolled....')
+ 
+@bot.command(name = 'clear', help = 'Clears a certian amount')
+async def clear(ctx, amount = 5):
+    await ctx.channel.purge(limit = amount + 1)
+    ctx.channel.send(f'Cleared {amount} messages!')
+    print(f'{amount} messages Cleared')
 
 @bot.command(name = 'kick', help = 'kicks the user')
 @commands.has_permissions(kick_members=True)
