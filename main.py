@@ -15,12 +15,6 @@ bot = commands.Bot(command_prefix='0')
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
-    bot.user.setPresence({
-        game: {
-            name: 'game',
-            type: 0
-            }
-    })
 
 @bot.event
 async def on_member_join(member):
