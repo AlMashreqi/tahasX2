@@ -2,7 +2,7 @@ import os, discord, random
 
 from discord.ext import commands
 
-was_kick_ban = False
+global was_kick_ban = False
 
 TOKEN = os.environ['DISCORD_TOKEN'] 
 GUILD = os.environ['DISCORD_GUILD']
