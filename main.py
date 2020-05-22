@@ -8,6 +8,8 @@ WCI = os.environ['WELCOME_CHANNEL_ID']
 RCI = os.environ['RULES_CHANNEL_ID']
 GCI = os.environ['GENERAL_CHANNEL_ID']
 
+was_kick_ban = False
+
 bot = commands.Bot(command_prefix='0')
 
 @bot.event
@@ -27,11 +29,14 @@ async def on_member_join(member):
 
 @bot.event
 async def on_member_remove(member):
-    channel = bot.get_channel(int(GCI))
-    leaveMessage = f'{member.mention} has Left the Server.\nIt was good having you here'
-    await channel.send(leaveMessage)
-    print(f'Leave message sent for {member}.....')
-        
+    if not was_kick_ban:
+        channel = bot.get_channel(int(GCI))
+        leaveMessage = f'{member.mention} has Left the Server.\nIt was good having you here'
+        await channel.send(leaveMessage)
+        print(f'Leave message sent for {member}.....')
+    else:
+        was_kick_ban = False
+
 @bot.command(name = 'introduce', help = 'Responds with Intoduction') 
 async def nine_nine(ctx):
     response = "Hey I am TahasX! I was created by Sauood. Written in Python"
@@ -51,10 +56,12 @@ async def kick(ctx, member: discord.Member, reason = 'unspecified'):
         await ctx.channel.send("You cannot kick yourself!")
         return
     await member.kick(reason=reason)
+    was_kick_ban = True
     channel = bot.get_channel(int(GCI))
     kickMessage = f'{member.mention} has been kicked from the Server. Reason: {reason}'
     await channel.send(kickMessage)
     print(f'Kick message sent for {member}....')
+    
 
 @bot.command(name = 'ban' , help = 'bans a user')
 @commands.has_permissions(ban_members=True)
@@ -63,6 +70,7 @@ async def ban(ctx, member: discord.Member, reason = 'unspecified'):
         await ctx.channel.send("You cannot ban yourself")
         return  
     await member.ban(reason=reason)
+    was_kick_ban = True
     channel = bot.get_channel(int(GCI))
     banMessage = f'{member.mention} has been banned from the Server. Reason: {reason}'
     await channel.send(banMessage)
