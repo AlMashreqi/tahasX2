@@ -58,7 +58,7 @@ async def clear(ctx, amount = 5):
 
 @bot.command(name = 'kick', help = 'kicks the user')
 @commands.has_permissions(kick_members=True)
-async def kick(ctx, member: discord.Member, reason = 'unspecified'):  
+async def kick(ctx, member: discord.Member, *, reason = 'unspecified'):  
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot kick yourself!")
         return
@@ -73,7 +73,7 @@ async def kick(ctx, member: discord.Member, reason = 'unspecified'):
 
 @bot.command(name = 'ban' , help = 'bans a user')
 @commands.has_permissions(ban_members=True)
-async def ban(ctx, member: discord.Member, reason = 'unspecified'):
+async def ban(ctx, member: discord.Member, *, reason = 'unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot ban yourself")
         return  
