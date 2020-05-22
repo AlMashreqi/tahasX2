@@ -57,8 +57,8 @@ async def kick(ctx, member: discord.Member, reason = 'unspecified'):
         await ctx.channel.send("You cannot kick yourself!")
         return
     global was_kick_ban
-    await member.kick(reason=reason)
     was_kick_ban = True
+    await member.kick(reason=reason)
     channel = bot.get_channel(int(GCI))
     kickMessage = f'{member.mention} has been kicked from the Server. Reason: {reason}'
     await channel.send(kickMessage)
@@ -72,8 +72,8 @@ async def ban(ctx, member: discord.Member, reason = 'unspecified'):
         await ctx.channel.send("You cannot ban yourself")
         return  
     global was_kick_ban
-    await member.ban(reason=reason)
     was_kick_ban = True
+    await member.ban(reason=reason)
     channel = bot.get_channel(int(GCI))
     banMessage = f'{member.mention} has been banned from the Server. Reason: {reason}'
     await channel.send(banMessage)
