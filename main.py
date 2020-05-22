@@ -18,10 +18,6 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    await member.create_dm()
-    await member.dm_channel.send(f'Hi {member.name}, welcome to Universe 0!')
-    print(f'DM Message sent to {member}....')
-
     channel = bot.get_channel(int(WCI))
     welcomeMessage = f'Welcome to Universe 0, {member.mention},\nBe sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.'
     await channel.send(welcomeMessage)
