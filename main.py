@@ -17,6 +17,7 @@ bot = commands.Bot(command_prefix='0')
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!') 
+    change_status.start()
 
 @tasks.loop(seconds = 20)
 async def change_status():
