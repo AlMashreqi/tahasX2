@@ -1,7 +1,6 @@
 import os, discord, random
 
-from discord.ext import commands, tasks
-from itertools import cycle
+from discord.ext import commands
 
 TOKEN = os.environ['DISCORD_TOKEN'] 
 GUILD = os.environ['DISCORD_GUILD']
@@ -10,18 +9,13 @@ RCI = os.environ['RULES_CHANNEL_ID']
 GCI = os.environ['GENERAL_CHANNEL_ID']
 
 was_kick_ban = False
-status = cycle(['8 Commands', 'Try 0help', 'Discord.py'])
 
 bot = commands.Bot(command_prefix='0')
 
 @bot.event
 async def on_ready():
-    print(f'{bot.user.name} has connected to Discord!') 
-    change_status.start()
-
-@tasks.loop(seconds = 20)
-async def change_status():
-    await bot.change_presence(status = dicord.Status.online, activity = discord.Game(next(status)))
+    print(f'{bot.user.name} has connected to Discord!')
+    await bot.change_presence(status = dicord.Status.online, activity = discord.Game('8 Commands!'))
 
 @bot.event
 async def on_member_join(member):
