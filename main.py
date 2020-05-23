@@ -15,7 +15,7 @@ bot = commands.Bot(command_prefix='0')
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
-    await bot.change_presence(status = dicord.Status.online, activity = discord.Game('8 Commands!'))
+    await bot.change_presence(status = discord.Status.online, activity = discord.Game('8 Commands!'))
 
 @bot.event
 async def on_member_join(member):
