@@ -61,7 +61,7 @@ async def clear(ctx, amount = 5):
 @clear.error
 async def clear_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        ctx.send("OOps! You don't have Permissions to That!")
+        await ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.command(name = 'kick', help = 'kicks the user')
 @commands.has_permissions(kick_members = True)
@@ -80,9 +80,9 @@ async def kick(ctx, member: discord.Member, *, reason = 'unspecified'):
 @kick.error
 async def kick_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        ctx.send("Please Specify a User to kick")
+        await ctx.send("Please Specify a User to kick")
     elif isinstance(error, commands.MissingPermissions):
-        ctx.send("OOps! You don't have Permissions to That!")
+        await ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.command(name = 'ban' , help = 'bans a user')
 @commands.has_permissions(ban_members=True)
@@ -101,9 +101,9 @@ async def ban(ctx, member: discord.Member, *, reason = 'unspecified'):
 @ban.error
 async def ban_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        ctx.send("Please Specify a User to Ban")
+        await ctx.send("Please Specify a User to Ban")
     elif isinstance(error, commands.MissingPermissions):
-        ctx.send("OOps! You don't have Permissions to That!")
+        await ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.command(name = 'unban', help = 'unbans a banned user')
 @commands.has_permissions(ban_members=True)
@@ -124,9 +124,9 @@ async def unban(ctx, *, member):
 @unban.error
 async def unban_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        ctx.send("Please Specify a User to Unban!")
+        await ctx.send("Please Specify a User to Unban!")
     elif isinstance(error, commands.MissingPermissions):
-        ctx.send("OOps! You don't have Permissions to That!")
+        await ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.event
 async def on_error(event, *args, **kwargs):
