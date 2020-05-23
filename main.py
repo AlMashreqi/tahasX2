@@ -51,6 +51,7 @@ async def roll(ctx):
     print('Dice rolled....')
  
 @bot.command(name = 'clear', help = 'Clears a certian amount')
+@commands.has_permissions(manage_messages = True)
 async def clear(ctx, amount = 5):
     await ctx.channel.purge(limit = amount + 1)
     await ctx.channel.send(f'Cleared {amount} messages!')
