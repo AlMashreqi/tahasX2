@@ -22,7 +22,7 @@ async def on_member_join(member):
     channel = bot.get_channel(int(WCI))
     welcomeMessage = f'Welcome to Universe 0, {member.mention},\nBe sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.'
     await channel.send(welcomeMessage)
-    print(f'Public Welcome message sent for {member}....')
+    print(f'Public Welcome message sent for {member}....') 
 
 @bot.event
 async def on_member_remove(member):
