@@ -16,6 +16,11 @@ bot = commands.Bot(command_prefix='0')
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
     await bot.change_presence(status = discord.Status.online, activity = discord.Game('8 Commands!'))
+    
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send("Woah! Command not Found!")
 
 @bot.event
 async def on_member_join(member):
