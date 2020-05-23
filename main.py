@@ -48,7 +48,7 @@ async def introduce(ctx):
 
 @bot.command(name = 'ping', help = 'gives the latency of TahasX')
 async def ping(ctx):
-    embed = discord.Embed(title='PING', description = f'Pong {round(bot.latency * 1000)}ms', color=0x8b0000)
+    embed = discord.Embed(description = f'Pong {round(bot.latency * 1000)}ms', color=0x8b0000)
     await ctx.send(embed = embed)
     
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
