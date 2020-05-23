@@ -50,6 +50,12 @@ async def introduce(ctx):
 async def ping(ctx):
     embed = discord.Embed(description = f'Pong {round(bot.latency * 1000)}ms', color= 0x3333A2)
     await ctx.send(embed = embed)
+
+@bot.command(name = avatar, help = 'shows the avatar of a User')
+async def avatar(ctx, member: discord.Member):
+    avatar_embed = discord.Embed(color = 0x8b0000)
+    avatar_embed.set_image(url = '{}'.format(member.avatar_url))
+    await ctx.send(embed = avatar_embed)
     
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
 async def roll(ctx):
