@@ -58,8 +58,13 @@ async def clear(ctx, amount = 5):
     await ctx.channel.send(f'Cleared {amount} messages!')
     print(f'{amount} messages Cleared')
 
+@clear.error
+async def clear_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        ctx.send("OOps! You don't have Permissions to That!")
+
 @bot.command(name = 'kick', help = 'kicks the user')
-@commands.has_permissions(kick_members=True)
+@commands.has_permissions(kick_members = True)
 async def kick(ctx, member: discord.Member, *, reason = 'unspecified'):  
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot kick yourself!")
@@ -72,6 +77,12 @@ async def kick(ctx, member: discord.Member, *, reason = 'unspecified'):
     await channel.send(kickMessage)
     print(f'Kick message sent for {member}....')
     
+@kick.error
+async def kick_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        ctx.send("Please Specify a User to kick")
+    elif isinstance(error, commands.MissingPermissions):
+        ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.command(name = 'ban' , help = 'bans a user')
 @commands.has_permissions(ban_members=True)
@@ -87,6 +98,13 @@ async def ban(ctx, member: discord.Member, *, reason = 'unspecified'):
     await channel.send(banMessage)
     print(f'Ban message sent for {member}......')
 
+@ban.error
+async def ban_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        ctx.send("Please Specify a User to Ban")
+    elif isinstance(error, commands.MissingPermissions):
+        ctx.send("OOps! You don't have Permissions to That!")
+
 @bot.command(name = 'unban', help = 'unbans a banned user')
 @commands.has_permissions(ban_members=True)
 async def unban(ctx, *, member):
@@ -98,10 +116,17 @@ async def unban(ctx, *, member):
         if(user.name, user.discriminator) == (member_name, member_discriminator):
             await ctx.guild.unban(user)
             await ctx.send(f'Unbanned {user.mention}')
-            print(f'Unban message sent for {user.mention}....')
+            print(f'Unbanned {user.mention}....')
             return
     ctx.send(f'User was not found!')
-    print('User was not Found....')
+    print('User was not Found....')    
+
+@unban.error
+async def unban_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        ctx.send("Please Specify a User to Unban!")
+    elif isinstance(error, commands.MissingPermissions):
+        ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.event
 async def on_error(event, *args, **kwargs):
