@@ -83,13 +83,19 @@ async def roll(ctx):
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 async def delsnipe(ctx):
     global deleted_message, del_author
-    embed = discord.Embed(title = '**Last Deleted Message**', discription = f'{deleted_message.content}\nAuthor: {del_author.name}', color = color_code)
-    await ctx.send(embed = embed)
+    embed = discord.Embed(title = '**Last Deleted Message**', discription = f'{deleted_message.content}\nAuthor: {del_author}', color = color_code)
+    await deleted_message.channel.send(embed = embed)
 
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 async def editsnipe(ctx):
     global edited_message, edit_author
-    embed = discord.Embed(title = '**Last Edited Message**', discription = f'{edited_message.content}\nAuthor: {edit_author.name}', color = color_code)
+    embed = discord.Embed(title = '**Last Edited Message**', discription = f'{edited_message.content}\nAuthor: {edit_author}', color = color_code)
+    await edited_message.channel.send(embed = embed)
+
+@bot.command(name = 'warn', help = 'Warns the Specified User')
+@commands.has_permissions(kick_members = True)
+async def warn(ctx, member: discord.Member, *, reason = 'Unspecified'):
+    embed = discord.Embed(description = f'{member} has been Warned\n**Reason:** {reason}', color = color_code)
     await ctx.send(embed = embed)
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
