@@ -10,9 +10,9 @@ GCI = os.environ['GENERAL_CHANNEL_ID']
 
 was_kick_ban = False
 color_code = 0x3333A2
-deleted_message = 'Empty'
-orignal_message = 'Empty'
-edited_message = 'Empty'
+deleted_message = str()
+orignal_message = str()
+#edited_message = str()
 
 bot = commands.Bot(command_prefix='0')
 
@@ -21,10 +21,10 @@ async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
     await bot.change_presence(status = discord.Status.online, activity = discord.Game('8 Commands!'))
 
-# @bot.event
-# async def on_command_error(ctx, error):
-#     if isinstance(error, commands.CommandNotFound):
-#         await ctx.send("Woah! Command not Found!")
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send("Woah! Command not Found!")
 
 @bot.event
 async def on_member_join(member):
@@ -51,9 +51,9 @@ async def on_message_delete(message):
 
 @bot.event
 async def on_message_edit(message1, message2):
-    global orignal_message, edited_message
+    global orignal_message #, edited_message
     orginal_message = message1
-    edited_message = message2
+    # edited_message = message2
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
@@ -87,10 +87,9 @@ async def delsnipe(ctx):
 
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 async def editsnipe(ctx):
-    global orignal_message, edited_message
+    global orignal_message #, edited_message
     message = orignal_message
-    message2 = edited_message
-    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message.content}_\nEdited Message: _{message2.content}_\nAuthor: _{message.author}_', color = color_code)
+    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message.content}_\nAuthor: _{message.author}_', color = color_code)
     await ctx.send(embed = embed)
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
