@@ -62,8 +62,14 @@ async def roll(ctx):
     dice = str(random.choice(range(1, 7)))
     await ctx.send(', '.join(dice))
     print('Dice rolled....')
+
+@bot.command(name = 'Warn', help = 'Warns the Specified User')
+@commands.has_permissions(kick_members = True)
+async def warn(ctx, member: discord.Member, *, reason = 'Unspecified'):
+    embed = discord.Embed(description = f'{member} has been Warned\n**Reason:** {reason}')
+    await ctx.send(embed = embed)
  
-@bot.command(name = 'clear', help = 'Clears a certian amount')
+@bot.command(name = 'Clear', help = 'Clears a certian amount')
 @commands.has_permissions(manage_messages = True)
 async def clear(ctx, amount = 5):
     await ctx.channel.purge(limit = amount + 1)
@@ -75,7 +81,7 @@ async def clear_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.send("OOps! You don't have Permissions to That!")
 
-@bot.command(name = 'kick', help = 'kicks the user')
+@bot.command(name = 'Kick', help = 'kicks the user')
 @commands.has_permissions(kick_members = True)
 async def kick(ctx, member: discord.Member, *, reason = 'unspecified'):  
     if member == None or member == ctx.message.author:
