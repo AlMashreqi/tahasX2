@@ -98,12 +98,6 @@ async def warn(ctx, member: discord.Member, *, reason = 'Unspecified'):
     embed = discord.Embed(description = f'{member} has been Warned\n**Reason:** {reason}', color = color_code)
     await ctx.send(embed = embed)
 
-@bot.command(name = 'warn', help = 'Warns the Specified User')
-@commands.has_permissions(kick_members = True)
-async def warn(ctx, member: discord.Member, *, reason = 'Unspecified'):
-    embed = discord.Embed(description = f'{member} has been Warned\n**Reason:** {reason}', color = color_code)
-    await ctx.send(embed = embed)
-
 @warn.error
 async def warn_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
