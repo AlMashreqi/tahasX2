@@ -11,6 +11,7 @@ GCI = os.environ['GENERAL_CHANNEL_ID']
 was_kick_ban = False
 color_code = 0x3333A2
 deleted_message = str()
+orignal_message = str()
 edited_message = str()
 
 bot = commands.Bot(command_prefix='0')
@@ -51,7 +52,9 @@ async def on_message_delete(message):
 @bot.event
 async def on_message_edit(message1, message2):
     global edited_message
-    edited_message = message1
+    global orignal_message
+    orginal message = message1
+    edited_message = message2
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
@@ -86,8 +89,10 @@ async def delsnipe(ctx):
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 async def editsnipe(ctx):
     global edited_message
-    message = edited_message
-    embed = discord.Embed(title = '**Last Edited Message**', description = f'Edited Message: _{message.content}_\nAuthor: _{message.author}_', color = color_code)
+    global orignal_message
+    message = orignal_message
+    message2 = edited_message
+    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message.content}_\nEdited Message: _{message2.content}_\nAuthor: _{message.author}_', color = color_code)
     await message.channel.send(embed = embed)
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
