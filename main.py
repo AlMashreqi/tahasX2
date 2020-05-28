@@ -52,10 +52,10 @@ async def on_message_delete(message):
     del_author = message.author
 
 @bot.event
-async def on_message_edit(message):
+async def on_message_edit(message1, message2):
     global edited_message, edit_author
-    edited_message = message
-    edit_author = message.author
+    edited_message = message1
+    edit_author = message1.author
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
