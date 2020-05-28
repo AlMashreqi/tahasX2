@@ -53,7 +53,7 @@ async def on_message_delete(message):
 async def on_message_edit(message1, message2):
     global edited_message
     global orignal_message
-    orginal message = message1
+    orginal_message = message1
     edited_message = message2
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
