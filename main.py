@@ -80,14 +80,14 @@ async def roll(ctx):
 async def delsnipe(ctx):
     global deleted_message
     message = deleted_message
-    embed = discord.Embed(title = '**Last Deleted Message**', description = f'{message.content}\nAuthor: {message.author.name}', color = color_code)
+    embed = discord.Embed(title = '**Last Deleted Message**', description = f'Deleted Message: _{message.content}_\nAuthor: _{message.author}_', color = color_code)
     await deleted_message.channel.send(embed = embed)
 
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 async def editsnipe(ctx):
     global edited_message
     message = edited_message
-    embed = discord.Embed(title = '**Last Edited Message**', description = f'{message.content}\nAuthor: {message.author.name}', color = color_code)
+    embed = discord.Embed(title = '**Last Edited Message**', description = f'Edited Message: _{message.content}_\nAuthor: _{message.author}_', color = color_code)
     await message.channel.send(embed = embed)
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
