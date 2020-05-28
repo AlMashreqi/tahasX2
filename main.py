@@ -88,9 +88,9 @@ async def delsnipe(ctx):
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 async def editsnipe(ctx):
     global orignal_message, edited_message
-    message = orignal_message
+    message = orignal_message.content
     message2 = edited_message.content
-    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message.content}_\nEdited Message: _{message2}_ \nAuthor: _{message.author}_', color = color_code)
+    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message}_\nEdited Message: _{message2}_ \nAuthor: _{message.author}_', color = color_code)
     await ctx.send(embed = embed)
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
