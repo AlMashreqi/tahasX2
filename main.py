@@ -11,9 +11,7 @@ GCI = os.environ['GENERAL_CHANNEL_ID']
 was_kick_ban = False
 color_code = 0x3333A2
 deleted_message = str()
-del_author = str()
 edited_message = str()
-edit_author = str()
 
 bot = commands.Bot(command_prefix='0')
 
@@ -47,15 +45,13 @@ async def on_member_remove(member):
 
 @bot.event
 async def on_message_delete(message):
-    global deleted_message, del_author
+    global deleted_message
     deleted_message = message
-    del_author = message.author
 
 @bot.event
 async def on_message_edit(message1, message2):
-    global edited_message, edit_author
+    global edited_message
     edited_message = message1
-    edit_author = message1.author
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
@@ -82,15 +78,17 @@ async def roll(ctx):
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 async def delsnipe(ctx):
-    global deleted_message, del_author
-    embed = discord.Embed(title = '**Last Deleted Message**', discription = f'{deleted_message.content}\nAuthor: {del_author}', color = color_code)
+    global deleted_message
+    message = deleted_message
+    embed = discord.Embed(title = '**Last Deleted Message**', discription = f'{message.content}\nAuthor: {message.author.name}', color = color_code)
     await deleted_message.channel.send(embed = embed)
 
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 async def editsnipe(ctx):
-    global edited_message, edit_author
-    embed = discord.Embed(title = '**Last Edited Message**', discription = f'{edited_message.content}\nAuthor: {edit_author}', color = color_code)
-    await edited_message.channel.send(embed = embed)
+    global edited_message
+    message = edited_message
+    embed = discord.Embed(title = '**Last Edited Message**', discription = f'{message.content}\nAuthor: {message.author.name}', color = color_code)
+    await message.channel.send(embed = embed)
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
 @commands.has_permissions(kick_members = True)
