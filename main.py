@@ -83,7 +83,7 @@ async def delsnipe(ctx):
     global deleted_message
     message = deleted_message
     embed = discord.Embed(title = '**Last Deleted Message**', description = f'Deleted Message: _{message.content}_\nAuthor: _{message.author}_', color = color_code)
-    await ctx.channel.send(embed = embed)
+    await ctx.send(embed = embed)
 
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 async def editsnipe(ctx):
@@ -91,7 +91,7 @@ async def editsnipe(ctx):
     message = orignal_message
     message2 = edited_message
     embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message.content}_\nEdited Message: _{message2.content}_\nAuthor: _{message.author}_', color = color_code)
-    await ctx.channel.send(embed = embed)
+    await ctx.send(embed = embed)
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
 @commands.has_permissions(kick_members = True)
