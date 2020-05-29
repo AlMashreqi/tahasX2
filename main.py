@@ -35,7 +35,7 @@ async def on_member_join(member):
     embed = discord.Embed(title = f'**Welcome {member.name}**', description = f'{member.mention}, Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.', color = bot.color_code)
     embed.set_thumbnail(url = f'{member.avatar_url}')
     embed.set_footer(text = f'Owned by {guild.owner}')
-    await channel.send(embed = embeds)
+    await channel.send(embed = embed)
     print(f'Public Welcome message sent for {member}....')
 
 @bot.event
