@@ -94,7 +94,7 @@ async def di(ctx):
 ⣿⣿⡿⠛⠉⠁⠄⢕⡳⣽⡾⣿⢽⣯⡿⣮⢚⣅⠹⣿⣿⣿
 ⡿⠋⠄⠄⠄⠄⢀⠒⠝⣞⢿⡿⣿⣽⢿⡽⣧⣳⡅⠌⠻⣿
 ⠁⠄⠄⠄⠄⠄⠐⡐⠱⡱⣻⡻⣝⣮⣟⣿⣻⣟⣻⡺⣊⠻⣿'''
-    ctx.send(dick)
+    await ctx.send(dick)
 
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
 async def roll(ctx):
