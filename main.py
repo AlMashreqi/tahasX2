@@ -162,8 +162,8 @@ async def unban(ctx, *, member):
     for ban_entry in banned_users:
         user = ban_entry.user
         if(user.name, user.discriminator) == (member_name, member_discriminator):
+            embed = discord.Embed(description = f'{member_name}#{member_discriminator} has been Unbanned', color = bot.color_code)
             await ctx.guild.unban(user)
-            embed = discord.Embed(description = f'{member.mention} has been Unbanned', color = bot.color_code)
             await ctx.send(embed = embed)
             print(f'Unbanned {user.mention}....')
             return
