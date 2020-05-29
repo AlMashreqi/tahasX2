@@ -8,11 +8,11 @@ WCI = os.environ['WELCOME_CHANNEL_ID']
 RCI = os.environ['RULES_CHANNEL_ID']
 GCI = os.environ['GENERAL_CHANNEL_ID']
 
-was_kick_ban = False
-color_code = 0x3333A2
-deleted_message = str()
-orignal_message = str()
-#edited_message = str()
+bot.was_kick_ban = False
+bot.color_code = 0x3333A2
+bot.del_message = str()
+bot.org_message = str()
+bot.ed_message = str()
 
 bot = commands.Bot(command_prefix='0')
 
@@ -23,8 +23,8 @@ async def on_ready():
 
 # @bot.event
 # async def on_command_error(ctx, error):
-#    if isinstance(error, commands.CommandNotFound):
-#        await ctx.send("Woah! Command not Found!")
+#     if isinstance(error, commands.CommandNotFound):
+#         await ctx.send("Woah! Command not Found!")
 
 @bot.event
 async def on_member_join(member):
@@ -35,25 +35,22 @@ async def on_member_join(member):
 
 @bot.event
 async def on_member_remove(member):
-    global was_kick_ban
-    if not was_kick_ban:
+    if not bot.was_kick_ban:
         channel = bot.get_channel(int(GCI))
         leaveMessage = f'{member.mention} has Left the Server.\nIt was good having you here'
         await channel.send(leaveMessage)
         print(f'Leave message sent for {member}.....')
     else:
-        was_kick_ban = False
+        bot.was_kick_ban = False
 
 @bot.event
 async def on_message_delete(message):
-    global deleted_message
-    deleted_message = message
+    bot.del_message = message
 
 @bot.event
 async def on_message_edit(message1, message2):
-    global orignal_message #, edited_message
-    orginal_message = message1
-    # edited_message = message2
+    bot.org_message = message1
+    bot.ed_message = message2
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
@@ -63,12 +60,12 @@ async def introduce(ctx):
 
 @bot.command(name = 'ping', help = 'gives the latency of TahasX')
 async def ping(ctx):
-    embed = discord.Embed(description = f'Pong {round(bot.latency * 1000)}ms', color = color_code)
+    embed = discord.Embed(description = f'Pong {round(bot.latency * 1000)}ms', color = bot.color_code)
     await ctx.send(embed = embed)
 
 @bot.command(name = 'avatar', help = 'shows the avatar of a User')
 async def avatar(ctx, member: discord.Member):
-    avatar_embed = discord.Embed(color = color_code)
+    avatar_embed = discord.Embed(color = bot.color_code)
     avatar_embed.set_image(url = '{}'.format(member.avatar_url))
     await ctx.send(embed = avatar_embed)
 
@@ -80,22 +77,21 @@ async def roll(ctx):
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 async def delsnipe(ctx):
-    global deleted_message
-    message = deleted_message
-    embed = discord.Embed(title = '**Last Deleted Message**', description = f'Deleted Message: _{message.content}_\nAuthor: _{message.author}_', color = color_code)
+    message = bot.del_message
+    embed = discord.Embed(title = '**Last Deleted Message**', description = f'Deleted Message: _{message.content}_\nAuthor: _{message.author}_', color = bot.color_code)
     await ctx.send(embed = embed)
 
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 async def editsnipe(ctx):
-    global orignal_message #, edited_message
-    message = orignal_message
-    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message.content}_\nAuthor: _{message.author}_', color = color_code)
+    message = bot.org_message
+    message2 = bot.ed_message
+    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message2.content}_\nAuthor: _{message.author}_', color = bot.color_code)
     await ctx.send(embed = embed)
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
 @commands.has_permissions(kick_members = True)
 async def warn(ctx, member: discord.Member, *, reason = 'Unspecified'):
-    embed = discord.Embed(description = f'{member} has been Warned\n**Reason:** {reason}', color = color_code)
+    embed = discord.Embed(description = f'{member} has been Warned\n**Reason:** {reason}', color = bot.color_code)
     await ctx.send(embed = embed)
 
 @warn.error
@@ -123,11 +119,10 @@ async def kick(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot kick yourself!")
         return
-    global was_kick_ban
-    was_kick_ban = True
+    bot.was_kick_ban = True
     await member.kick(reason=reason)
     channel = bot.get_channel(int(GCI))
-    embed = discord.Embed(description = f'{member.mention} has been kicked from the Server\n**Reason:** {reason}', color = color_code)
+    embed = discord.Embed(description = f'{member.mention} has been kicked from the Server\n**Reason:** {reason}', color = bot.color_code)
     await ctx.send(embed = embed)
     print(f'Kick message sent for {member}....')
 
@@ -144,11 +139,10 @@ async def ban(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot ban yourself")
         return
-    global was_kick_ban
-    was_kick_ban = True
+    bot.was_kick_ban = True
     await member.ban(reason=reason)
     channel = bot.get_channel(int(GCI))
-    embed = discord.Embed(description = f'{member.mention} has been banned from the Server\n**Reason:** {reason}', color = color_code)
+    embed = discord.Embed(description = f'{member.mention} has been banned from the Server\n**Reason:** {reason}', color = bot.color_code)
     await ctx.send(embed = embed)
     print(f'Ban message sent for {member}......')
 
@@ -169,7 +163,7 @@ async def unban(ctx, *, member):
         user = ban_entry.user
         if(user.name, user.discriminator) == (member_name, member_discriminator):
             await ctx.guild.unban(user)
-            embed = discord.Embed(description = f'{member.mention} has been Unbanned', color = color_code)
+            embed = discord.Embed(description = f'{member.mention} has been Unbanned', color = bot.color_code)
             await ctx.send(embed = embed)
             print(f'Unbanned {user.mention}....')
             return
@@ -183,12 +177,12 @@ async def unban_error(ctx, error):
     elif isinstance(error, commands.MissingPermissions):
         await ctx.send("OOps! You don't have Permissions to That!")
 
-@bot.event
-async def on_error(event, *args, **kwargs):
-    with open('err.log', 'a') as f:
-        if event == 'on_message':
-            f.write(f'Unhandled message: {args[0]}\n')
-        else:
-            raise
+# @bot.event
+# async def on_error(event, *args, **kwargs):
+#     with open('err.log', 'a') as f:
+#         if event == 'on_message':
+#             f.write(f'Unhandled message: {args[0]}\n')
+#         else:
+#             raise
 
 bot.run(TOKEN)
