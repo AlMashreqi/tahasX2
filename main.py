@@ -107,7 +107,7 @@ async def roll(ctx):
 async def delsnipe(ctx):
     message = bot.del_message
     embed = discord.Embed(title = '**Last Deleted Message**', description = f'Deleted Message:\n```{message.content}```', color = bot.color_code)
-    embed.set_footer(*, text = f'Author: {message.author}', icon_url = message.author.avatar_url)
+    embed.set_footer(text = f'Author: {message.author}', icon_url = message.author.avatar_url)
     await ctx.send(embed = embed)
 
 @delsnipe.error
@@ -123,7 +123,7 @@ async def editsnipe(ctx):
     message = bot.org_message
     message2 = bot.ed_message
     embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message:\n```{message.content}```\nEdited Message:\n```{message2.content}```\n', color = bot.color_code)
-    embed.set_footer(*, text = f'Author: {message.author}', icon_url = message.author.avatar_url)
+    embed.set_footer(text = f'Author: {message.author}', icon_url = message.author.avatar_url)
     await ctx.send(embed = embed)
 
 @editsnipe.error
