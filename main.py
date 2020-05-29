@@ -81,12 +81,22 @@ async def delsnipe(ctx):
     embed = discord.Embed(title = '**Last Deleted Message**', description = f'Deleted Message: _{message.content}_\nAuthor: _{message.author}_', color = bot.color_code)
     await ctx.send(embed = embed)
 
+@delsnipe.error
+async def delsnipe_error(ctx, error):
+    if isinstance(error, Exception):
+        ctx.send('Nothing to Snipe')
+
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 async def editsnipe(ctx):
     message = bot.org_message
     message2 = bot.ed_message
     embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message.content}_\nEdited Message: _{message2.content}_\nAuthor: _{message.author}_', color = bot.color_code)
     await ctx.send(embed = embed)
+
+@editsnipe.error
+async def editsnipe_error(ctx, error):
+    if isinstance(error, Exception):
+        ctx.send('Nothing to Snipe')
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
 @commands.has_permissions(kick_members = True)
