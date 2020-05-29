@@ -33,7 +33,7 @@ async def on_member_join(member):
     channel = bot.get_channel(int(WCI))
     embed = discord.Embed(title = f'**Welcome {member.mention}**', description = f'Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.', color = bot.color_code)
     embed.set_image(url = f'{member.avatar_url}')
-    await channel.send(welcomeMessage)
+    await channel.send(embed = embed)
     print(f'Public Welcome message sent for {member}....')
 
 @bot.event
