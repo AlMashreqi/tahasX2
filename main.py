@@ -8,13 +8,13 @@ WCI = os.environ['WELCOME_CHANNEL_ID']
 RCI = os.environ['RULES_CHANNEL_ID']
 GCI = os.environ['GENERAL_CHANNEL_ID']
 
+bot = commands.Bot(command_prefix='0')
+
 bot.was_kick_ban = False
 bot.color_code = 0x3333A2
 bot.del_message = str()
 bot.org_message = str()
 bot.ed_message = str()
-
-bot = commands.Bot(command_prefix='0')
 
 @bot.event
 async def on_ready():
