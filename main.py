@@ -25,6 +25,8 @@ async def on_ready():
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("Woah! Command not Found!")
+    else:
+        await ctx.send(error)
 
 @bot.event
 async def on_member_join(member):
