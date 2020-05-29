@@ -31,7 +31,8 @@ async def on_command_error(ctx, error):
 @bot.event
 async def on_member_join(member):
     channel = bot.get_channel(int(WCI))
-    welcomeMessage = f'Welcome to Universe 0, {member.mention},\nBe sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.'
+    embed = discord.Embed(title = f'**Welcome {member.mention}**', description = f'Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.', color = bot.color_code)
+    embed.set_image(url = f'{member.avatar_url}')
     await channel.send(welcomeMessage)
     print(f'Public Welcome message sent for {member}....')
 
@@ -68,7 +69,7 @@ async def ping(ctx):
 @bot.command(name = 'avatar', help = 'shows the avatar of a User')
 async def avatar(ctx, member: discord.Member):
     avatar_embed = discord.Embed(color = bot.color_code)
-    avatar_embed.set_image(url = '{}'.format(member.avatar_url))
+    avatar_embed.set_image(url = f'{member.avatar_url}')
     await ctx.send(embed = avatar_embed)
 
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
