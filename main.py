@@ -8,13 +8,13 @@ WCI = os.environ['WELCOME_CHANNEL_ID']
 RCI = os.environ['RULES_CHANNEL_ID']
 GCI = os.environ['GENERAL_CHANNEL_ID']
 
-bot = commands.Bot(command_prefix='0')
-
 bot.was_kick_ban = False
 bot.color_code = 0x3333A2
 bot.del_message = str()
 bot.org_message = str()
 bot.ed_message = str()
+
+bot = commands.Bot(command_prefix='0')
 
 @bot.event
 async def on_ready():
@@ -48,9 +48,9 @@ async def on_message_delete(message):
     bot.del_message = message
 
 @bot.event
-async def on_message_edit(message1, message2):
-    bot.org_message = message1
-    bot.ed_message = message2
+async def on_message_edit(before, after):
+    bot.org_message = before
+    bot.ed_message = after
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
@@ -85,7 +85,7 @@ async def delsnipe(ctx):
 async def editsnipe(ctx):
     message = bot.org_message
     message2 = bot.ed_message
-    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message2.content}_\nAuthor: _{message.author}_', color = bot.color_code)
+    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message: _{message.content}_\nEdited Message: _{message2.content}_Author: _{message.author}_', color = bot.color_code)
     await ctx.send(embed = embed)
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
