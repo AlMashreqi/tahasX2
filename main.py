@@ -167,7 +167,7 @@ async def unban(ctx, *, member):
             await ctx.send(embed = embed)
             print(f'Unbanned {user.mention}....')
             return
-    ctx.send(f'User was not found!')
+    awit ctx.send(f'User was not found!')
     print('User was not Found....')
 
 @unban.error
