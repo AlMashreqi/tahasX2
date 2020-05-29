@@ -31,9 +31,9 @@ async def on_command_error(ctx, error):
 @bot.event
 async def on_member_join(member):
     channel = bot.get_channel(int(WCI))
-    embed = discord.Embed(title = f'**Welcome {member.mention}**', description = f'Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.', color = bot.color_code)
+    embed = discord.Embed(title = f'**Welcome {member.name}**', description = f'{member.mention}, Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.', color = bot.color_code)
     embed.set_thumbnail(url = f'{member.avatar_url}')
-    await channel.send(embed = embed)
+    await channel.send(embed = embeds)
     print(f'Public Welcome message sent for {member}....')
 
 @bot.event
