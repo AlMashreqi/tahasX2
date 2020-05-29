@@ -76,6 +76,7 @@ async def roll(ctx):
     print('Dice rolled....')
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
+@commands.has_permissions(manage_messages = True)
 async def delsnipe(ctx):
     message = bot.del_message
     embed = discord.Embed(title = '**Last Deleted Message**', description = f'Deleted Message: _{message.content}_\nAuthor: _{message.author}_', color = bot.color_code)
@@ -85,8 +86,11 @@ async def delsnipe(ctx):
 async def delsnipe_error(ctx, error):
     if isinstance(error, Exception):
         await ctx.send('Nothing to Snipe')
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send("OOps You don't have Permissions to That!")
 
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
+@commands.has_permissions(manage_messages = True)
 async def editsnipe(ctx):
     message = bot.org_message
     message2 = bot.ed_message
@@ -97,6 +101,8 @@ async def editsnipe(ctx):
 async def editsnipe_error(ctx, error):
     if isinstance(error, Exception):
         await ctx.send('Nothing to Snipe')
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
 @commands.has_permissions(kick_members = True)
