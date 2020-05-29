@@ -84,7 +84,7 @@ async def delsnipe(ctx):
 @delsnipe.error
 async def delsnipe_error(ctx, error):
     if isinstance(error, Exception):
-        ctx.send('Nothing to Snipe')
+        await ctx.send('Nothing to Snipe')
 
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 async def editsnipe(ctx):
@@ -96,7 +96,7 @@ async def editsnipe(ctx):
 @editsnipe.error
 async def editsnipe_error(ctx, error):
     if isinstance(error, Exception):
-        ctx.send('Nothing to Snipe')
+        await ctx.send('Nothing to Snipe')
 
 @bot.command(name = 'warn', help = 'Warns the Specified User')
 @commands.has_permissions(kick_members = True)
