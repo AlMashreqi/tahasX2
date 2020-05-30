@@ -81,7 +81,7 @@ async def help(ctx, *, category = 'display'):
 
     if category == 'Mod':
         await ctx.send(embed = mod_embed)
-    elif category == 'Util':
+    elif category == 'Utils':
         await ctx.send(embed = uti_embed)
     elif category == 'display':
         await ctx.send(embed = help_embed)
