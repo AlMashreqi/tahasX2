@@ -75,8 +75,8 @@ async def help(ctx, *, category = 'display'):
     mod_embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
     help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\nUsage: help <category-name>', color = bot.color_code)
-    help_embed.add_field(name = '**Moderation**', value = '```0help Mod```')
-    help_embed.add_field(name = '**Utilities & Fun**', value = '```0help Utils```')
+    help_embed.add_field(name = '**Moderation**', value = '`0help Mod`')
+    help_embed.add_field(name = '**Utilities & Fun**', value = '`0help Utils`')
     help_embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
     if category == 'Mod':
