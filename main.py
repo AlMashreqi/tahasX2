@@ -52,6 +52,15 @@ async def on_member_remove(member):
     else:
         bot.was_kick_ban = False
 
+@bot.event
+async def on_message_delete(message):
+    bot.del_message = message
+
+@bot.event
+async def on_message_edit(before, after):
+    bot.org_message = before
+    bot.ed_message = after
+
 @bot.command(name = 'help', help = 'Shows the help command')
 async def help(ctx, *, category = 'display'):
     guild = bot.get_guild(int(GUILD))
@@ -87,15 +96,6 @@ async def help(ctx, *, category = 'display'):
         await ctx.send(embed = help_embed)
     else:
         await ctx.send('Category Not Found!')
-
-@bot.event
-async def on_message_delete(message):
-    bot.del_message = message
-
-@bot.event
-async def on_message_edit(before, after):
-    bot.org_message = before
-    bot.ed_message = after
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
@@ -138,9 +138,7 @@ async def delsnipe_error(ctx, error):
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 @commands.has_permissions(manage_messages = True)
 async def editsnipe(ctx):
-    message = bot.org_message
-    message2 = bot.ed_message
-    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message:\n```{message.content}```\nEdited Message:\n```{message2.content}```\n', color = bot.color_code)
+    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message:\n```{bot.org_message.content}```\nEdited Message:\n```{bot.ed_message.content}```\n', color = bot.color_code)
     embed.set_footer(text = f'Author: {message.author}', icon_url = message.author.avatar_url)
     await ctx.send(embed = embed)
 
