@@ -74,7 +74,7 @@ async def help(ctx, *, category = 'display'):
     mod_embed.add_field(name = 'warn', value = 'Warns a User\nUsage: `0warn <user> [reason]`', inline = False)
     mod_embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
-    help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\n\nUsage: `0help <category-name>`', color = bot.color_code)
+    help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\n', color = bot.color_code)
     help_embed.add_field(name = '**Moderation**', value = '`0help Mod`')
     help_embed.add_field(name = '**Utilities & Fun**', value = '`0help Utils`')
     help_embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
