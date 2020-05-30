@@ -26,7 +26,7 @@ async def on_ready():
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("Woah! Command not Found!")
-    elif (error, Exception):
+    elif not(error, Exception):
         await ctx.send(error)
 
 @bot.event
@@ -55,13 +55,13 @@ async def on_member_remove(member):
 @bot.command(name = 'help', help = 'Shows the help command')
 async def help(ctx):
     embed = discord.Embed(title = 'Command Help', color = bot.color_code)
-    embed.add_field(name = '**Utilities & Fun**')
+    embed.add_field(name = '**Utilities & Fun**', value = 'Commands for Fun and Utilities')
     embed.add_field(name = 'avatar', value = 'Displays the Avatar of a User\nUsage: 0avatar <user>')
     embed.add_field(name = 'help', value = 'Shows this Menu\nUsage: 0help')
     embed.add_field(name = 'introduce', value = 'Displays the Introduction of the Bot\nUsage: 0introduce')
     embed.add_field(name = 'ping', value = 'Displays the Latency of the Bot\nUsage: 0ping')
     embed.add_field(name = 'rd', value = 'Simulates rolling of Dice\nUsage: 0rd')
-    embed.add_field(name = '**Moderation**')
+    embed.add_field(name = '**Moderation**', value = 'Commands For Moderation')
     embed.add_field(name = 'ban', value = 'Bans a User from the Server\nUsage: 0ban <user> [reason]')
     embed.add_field(name = 'clear', value = 'Clears last 5 Messages on Default\nUsage: 0clear <number-of-messages>')
     embed.add_field(name = 'delsnipe', value = 'Displays the Last Deleted Message\nUsage: 0delsnipe')
@@ -69,6 +69,7 @@ async def help(ctx):
     embed.add_field(name = 'kick', value = 'Kicks out a user from the Server\nUsage: 0kick <user> [reason]')
     embed.add_field(name = 'unban', value = 'Unbans a Banned User\nUsage: 0unban <user>')
     embed.add_field(name = 'warn', value = 'Warns a User\nUsage: 0warn <user> [reason]')
+    embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @bot.event
