@@ -139,7 +139,7 @@ async def delsnipe_error(ctx, error):
 @commands.has_permissions(manage_messages = True)
 async def editsnipe(ctx):
     embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message:\n```{bot.org_message.content}```\nEdited Message:\n```{bot.ed_message.content}```\n', color = bot.color_code)
-    embed.set_footer(text = f'Author: {message.author}', icon_url = message.author.avatar_url)
+    embed.set_footer(text = f'Author: {bot.org_message.author}', icon_url = bot.org_message.author.avatar_url)
     await ctx.send(embed = embed)
 
 @editsnipe.error
