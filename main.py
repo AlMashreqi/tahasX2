@@ -53,16 +53,18 @@ async def on_member_remove(member):
         bot.was_kick_ban = False
 
 @bot.command(name = 'help', help = 'Shows the help command')
-async def help(ctx):
+async def help(ctx, *, category = 'display'):
     guild = bot.get_guild(int(GUILD))
-    embed = discord.Embed(title = 'Command Help', color = bot.color_code)
-    embed.add_field(name = '**Utilities & Fun**', value = 'Commands for Fun and Utilities', inline = False)
+
+    uti_embed = discord.Embed(title = 'Command Help', description = '**Utilities & Fun**' color = bot.color_code)
     embed.add_field(name = 'avatar', value = 'Displays the Avatar of a User\nUsage: 0avatar <user>', inline = False)
     embed.add_field(name = 'help', value = 'Shows this Menu\nUsage: 0help', inline = False)
     embed.add_field(name = 'introduce', value = 'Displays the Introduction of the Bot\nUsage: 0introduce', inline = False)
     embed.add_field(name = 'ping', value = 'Displays the Latency of the Bot\nUsage: 0ping', inline = False)
     embed.add_field(name = 'rd', value = 'Simulates rolling of Dice\nUsage: 0rd', inline = False)
-    embed.add_field(name = '**Moderation**', value = 'Commands For Moderation', inline = False)
+    embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    
+    mod_embed = discord.Embed(title = 'Command Help', description = '**Moderation**' color = bot.color_code)
     embed.add_field(name = 'ban', value = 'Bans a User from the Server\nUsage: 0ban <user> [reason]', inline = False)
     embed.add_field(name = 'clear', value = 'Clears last 5 Messages on Default\nUsage: 0clear <number-of-messages>', inline = False)
     embed.add_field(name = 'delsnipe', value = 'Displays the Last Deleted Message\nUsage: 0delsnipe', inline = False)
@@ -71,7 +73,20 @@ async def help(ctx):
     embed.add_field(name = 'unban', value = 'Unbans a Banned User\nUsage: 0unban <user>', inline = False)
     embed.add_field(name = 'warn', value = 'Warns a User\nUsage: 0warn <user> [reason]', inline = False)
     embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
-    await ctx.send(embed = embed)
+
+    help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\nUsage: help <category-name>' color = bot.color_code)
+    embed.add_field(name = '```Mod```', value = 'Moderation Commands')
+    embed.add_field(name = '```Utilities```', value = 'Utilities and Fun Commands')
+    embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+
+    if category == 'Mod':
+        await ctx.send(embed = mod_embed)
+    elif category == 'Utilities':
+        await ctx.send(embed = uti_embed)
+    elif category == '':
+        await ctx.send(embed = help_embed)
+    else:
+        await ctx.send('Category Not Found!')
 
 @bot.event
 async def on_message_delete(message):
