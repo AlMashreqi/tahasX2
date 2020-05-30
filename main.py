@@ -58,8 +58,9 @@ async def on_message_delete(message):
 
 @bot.event
 async def on_message_edit(before, after):
-    bot.org_message = before
-    bot.ed_message = after
+    if before.content != after.content:
+        bot.org_message = before
+        bot.ed_message = after
 
 @bot.command(name = 'help', help = 'Shows the help command')
 async def help(ctx, *, category = 'display'):
