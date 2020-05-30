@@ -32,7 +32,7 @@ async def on_command_error(ctx, error):
 async def on_member_join(member):
     channel = bot.get_channel(int(WCI))
     guild = bot.get_guild(int(GUILD))
-    embed = discord.Embed(title = f'**Welcome {member.name}**', description = f'{member.mention}, Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.\n**Username: ** {member}\n**ID:** {member.user.id}', color = bot.color_code)
+    embed = discord.Embed(title = f'**Welcome {member.name}**', description = f'{member.mention}, Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.\n**Username: ** {member}\n**ID:** {member.id}', color = bot.color_code)
     embed.set_thumbnail(url = f'{member.avatar_url}')
     embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await channel.send(embed = embed)
