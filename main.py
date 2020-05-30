@@ -31,7 +31,7 @@ async def on_command_error(ctx, error):
 @bot.event
 async def on_member_join(member):
     channel = bot.get_channel(int(WCI))
-    guild = bot.get_guild(GUILD)
+    guild = iint(bot.get_guild(GUILD))
     embed = discord.Embed(title = f'**Welcome {member.name}**', description = f'{member.mention}, Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.', color = bot.color_code)
     embed.set_thumbnail(url = f'{member.avatar_url}')
     embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.avatar_url)
