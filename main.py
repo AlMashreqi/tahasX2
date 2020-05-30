@@ -42,6 +42,7 @@ async def on_member_join(member):
 async def on_member_remove(member):
     if not bot.was_kick_ban:
         channel = bot.get_channel(int(GCI))
+        guild = bot.get_guild(int(GUILD))
         embed = discord.Embed(title = f'**Thanks for being Here**', description = f'{member.mention} has Left the Server.\nIt was good having you here.\n\n**• Username: ** {member}\n**• ID:** {member.id}\n**• Server Members: ** {len(guild.members)}', color = bot.color_code)
         embed.set_thumbnail(url = f'{member.avatar_url}')
         embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
