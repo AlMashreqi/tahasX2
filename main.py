@@ -56,7 +56,7 @@ async def on_member_remove(member):
 async def help(ctx, *, category = 'display'):
     guild = bot.get_guild(int(GUILD))
 
-    uti_embed = discord.Embed(title = 'Command Help', description = '**Utilities & Fun**' color = bot.color_code)
+    uti_embed = discord.Embed(title = 'Command Help', description = '**Utilities & Fun**', color = bot.color_code)
     embed.add_field(name = 'avatar', value = 'Displays the Avatar of a User\nUsage: 0avatar <user>', inline = False)
     embed.add_field(name = 'help', value = 'Shows this Menu\nUsage: 0help', inline = False)
     embed.add_field(name = 'introduce', value = 'Displays the Introduction of the Bot\nUsage: 0introduce', inline = False)
@@ -64,7 +64,7 @@ async def help(ctx, *, category = 'display'):
     embed.add_field(name = 'rd', value = 'Simulates rolling of Dice\nUsage: 0rd', inline = False)
     embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     
-    mod_embed = discord.Embed(title = 'Command Help', description = '**Moderation**' color = bot.color_code)
+    mod_embed = discord.Embed(title = 'Command Help', description = '**Moderation**', color = bot.color_code)
     embed.add_field(name = 'ban', value = 'Bans a User from the Server\nUsage: 0ban <user> [reason]', inline = False)
     embed.add_field(name = 'clear', value = 'Clears last 5 Messages on Default\nUsage: 0clear <number-of-messages>', inline = False)
     embed.add_field(name = 'delsnipe', value = 'Displays the Last Deleted Message\nUsage: 0delsnipe', inline = False)
@@ -74,7 +74,7 @@ async def help(ctx, *, category = 'display'):
     embed.add_field(name = 'warn', value = 'Warns a User\nUsage: 0warn <user> [reason]', inline = False)
     embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
-    help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\nUsage: help <category-name>' color = bot.color_code)
+    help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\nUsage: help <category-name>', color = bot.color_code)
     embed.add_field(name = '```Mod```', value = 'Moderation Commands')
     embed.add_field(name = '```Utilities```', value = 'Utilities and Fun Commands')
     embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
