@@ -54,6 +54,7 @@ async def on_member_remove(member):
 
 @bot.command(name = 'help', help = 'Shows the help command')
 async def help(ctx):
+    guild = bot.get_guild(int(GUILD))
     embed = discord.Embed(title = 'Command Help', color = bot.color_code)
     embed.add_field(name = '**Utilities & Fun**', value = 'Commands for Fun and Utilities')
     embed.add_field(name = 'avatar', value = 'Displays the Avatar of a User\nUsage: 0avatar <user>')
