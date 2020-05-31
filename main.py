@@ -106,11 +106,14 @@ async def introduce(ctx):
 
 @bot.command(name = 'ping', help = f'gives the latency of the Bot')
 async def ping(ctx):
+    guild = bot.get_guild(int(GUILD))
     embed = discord.Embed(description = f'Pong {round(bot.latency * 1000)}ms', color = bot.color_code)
+    embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @bot.command(name = 'avatar', help = 'shows the avatar of a User')
 async def avatar(ctx, member: discord.Member):
+    guild = bot.get_guild(int(GUILD))
     avatar_embed = discord.Embed(color = bot.color_code)
     avatar_embed.set_image(url = f'{member.avatar_url}')
     embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
@@ -125,6 +128,7 @@ async def roll(ctx):
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 @commands.has_permissions(manage_messages = True)
 async def delsnipe(ctx):
+    guild = bot.get_guild(int(GUILD))
     message = bot.del_message
     embed = discord.Embed(title = '**Last Deleted Message**', description = f'Deleted Message:\n```{message.content}```\nAuthor: {message.author}', color = bot.color_code)
     embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
@@ -140,6 +144,7 @@ async def delsnipe_error(ctx, error):
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 @commands.has_permissions(manage_messages = True)
 async def editsnipe(ctx):
+    guild = bot.get_guild(int(GUILD))
     embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message:\n```{bot.org_message.content}```\nEdited Message:\n```{bot.ed_message.content}```\nAuthor: {bot.org_message.author}', color = bot.color_code)
     embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
@@ -154,6 +159,7 @@ async def editsnipe_error(ctx, error):
 @bot.command(name = 'warn', help = 'Warns the Specified User')
 @commands.has_permissions(kick_members = True)
 async def warn(ctx, member: discord.Member, *, reason = 'Unspecified'):
+    guild = bot.get_guild(int(GUILD))
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot Warn yourself!")
         return
@@ -186,6 +192,7 @@ async def mute(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot Mute yourself!")
         return
+    guild = bot.get_guild(int(GUILD))
     role = discord.utils.get(ctx.guild.roles, name='Prisoner')
     await member.add_roles(role)
     embed = discord.Embed(description = f'{member.mention} has been Muted.\n**Reason:** {reason}', color = bot.color_code)
@@ -205,6 +212,7 @@ async def unmute(ctx, member: discord.Member):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot Mute yourself!")
         return
+    guild = bot.get_guild(int(GUILD))
     role = discord.utils.get(ctx.guild.roles, name='Prisoner')
     await member.remove_roles(role)
     embed = discord.Embed(description = f'{member.mention} has been Unmuted', color = bot.color_code)
@@ -225,6 +233,7 @@ async def kick(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot kick yourself!")
         return
+    guild = bot.get_guild(int(GUILD))
     await member.kick(reason=reason)
     channel = bot.get_channel(int(GCI))
     embed = discord.Embed(description = f'{member.mention} has been kicked from the Server\n**Reason:** {reason}', color = bot.color_code)
@@ -245,6 +254,7 @@ async def ban(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot ban yourself")
         return
+    guild = bot.get_guild(int(GUILD))
     await member.ban(reason=reason)
     channel = bot.get_channel(int(GCI))
     embed = discord.Embed(description = f'{member.mention} has been banned from the Server\n**Reason:** {reason}', color = bot.color_code)
@@ -262,6 +272,7 @@ async def ban_error(ctx, error):
 @bot.command(name = 'unban', help = 'unbans a banned user')
 @commands.has_permissions(ban_members=True)
 async def unban(ctx, *, member):
+    guild = bot.get_guild(int(GUILD))
     banned_users = await ctx.guild.bans()
     member_name, member_discriminator = member.split('#')
 
