@@ -36,7 +36,7 @@ async def on_member_join(member):
     guild = bot.get_guild(int(GUILD))
     embed = discord.Embed(title = f'**Welcome {member.name}**', description = f'{member.mention}, Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.\n\n**• Username: ** {member}\n**• ID:** {member.id}\n**• Server Members: ** {len(guild.members)}', color = bot.color_code)
     embed.set_thumbnail(url = f'{member.avatar_url}')
-    embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await channel.send(embed = embed)
     print(f'Public Welcome message sent for {member}....')
 
@@ -47,7 +47,7 @@ async def on_member_remove(member):
         guild = bot.get_guild(int(GUILD))
         embed = discord.Embed(title = f'**Thanks for being Here**', description = f'{member.mention} has Left the Server.\nIt was good having you here.\n\n**• Username: ** {member}\n**• ID:** {member.id}\n**• Server Members: ** {len(guild.members)}', color = bot.color_code)
         embed.set_thumbnail(url = f'{member.avatar_url}')
-        embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+        embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
         await channel.send(embed = embed)
         print(f'Leave message sent for {member}.....')
     else:
@@ -74,7 +74,7 @@ async def help(ctx, *, category = 'display'):
     uti_embed.add_field(name = 'introduce', value = 'Displays the Introduction of the Bot\nUsage: `0introduce`', inline = False)
     uti_embed.add_field(name = 'ping', value = 'Displays the Latency of the Bot\nUsage: `0ping`', inline = False)
     uti_embed.add_field(name = 'rd', value = 'Simulates rolling of Dice\nUsage: `0rd`', inline = False)
-    uti_embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    uti_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     
     mod_embed = discord.Embed(title = 'Command Help', description = '**Moderation**', color = bot.color_code)
     mod_embed.add_field(name = 'ban', value = 'Bans a User from the Server\nUsage: `0ban <user> [reason]`', inline = False)
@@ -82,14 +82,16 @@ async def help(ctx, *, category = 'display'):
     mod_embed.add_field(name = 'delsnipe', value = 'Displays the Last Deleted Message\nUsage: `0delsnipe`', inline = False)
     mod_embed.add_field(name = 'editsnipe', value = 'Displays the Last Edited Message with Orignal Content\nUsage: `0editsnipe`', inline = False)
     mod_embed.add_field(name = 'kick', value = 'Kicks out a user from the Server\nUsage: `0kick <user> [reason]`', inline = False)
+    mod_embed.add_field(name = 'mute', value = 'Mutes the specified User\nUsage: `0mute <user> [reason]`', inline = False)
     mod_embed.add_field(name = 'unban', value = 'Unbans a Banned User\nUsage: `0unban <user>`', inline = False)
+    mod_embed.add_field(name = 'kick', value = 'Unmutes a muted user\nUsage: `0unmute <user>`', inline = False)
     mod_embed.add_field(name = 'warn', value = 'Warns a User\nUsage: `0warn <user> [reason]`', inline = False)
-    mod_embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    mod_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
     help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\n', color = bot.color_code)
     help_embed.add_field(name = '**Moderation**', value = '`0help Mod`')
     help_embed.add_field(name = '**Utilities & Fun**', value = '`0help Utils`')
-    help_embed.set_footer(text = f'© TahasX | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    help_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
     if category == 'Mod':
         await ctx.send(embed = mod_embed)
@@ -102,11 +104,11 @@ async def help(ctx, *, category = 'display'):
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
-    response = "Hey I am TahasX! I was created by Sauood. Written in Python"
+    response = f"Hey I am {bot.user.name}! I was created by Sauood. Written in Python"
     await ctx.send(response)
     print("Response sent....")
 
-@bot.command(name = 'ping', help = 'gives the latency of TahasX')
+@bot.command(name = 'ping', help = f'gives the latency of {bot.user.name}')
 async def ping(ctx):
     embed = discord.Embed(description = f'Pong {round(bot.latency * 1000)}ms', color = bot.color_code)
     await ctx.send(embed = embed)
@@ -155,6 +157,9 @@ async def editsnipe_error(ctx, error):
 @bot.command(name = 'warn', help = 'Warns the Specified User')
 @commands.has_permissions(kick_members = True)
 async def warn(ctx, member: discord.Member, *, reason = 'Unspecified'):
+    if member == None or member == ctx.message.author:
+        await ctx.channel.send("You cannot Warn yourself!")
+        return
     embed = discord.Embed(description = f'{member} has been Warned\n**Reason:** {reason}', color = bot.color_code)
     await ctx.send(embed = embed)
 
@@ -176,6 +181,43 @@ async def clear(ctx, amount = 5):
 async def clear_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.send("OOps! You don't have Permissions to That!")
+
+@bot.command(name = 'mute', help = 'Mutes a Member')
+@commands.has_permissions(mute_members = True)
+async def mute(ctx, member: discord.Member, *, reason = 'Unspecified'):
+    if member == None or member == ctx.message.author:
+        await ctx.channel.send("You cannot Mute yourself!")
+        return
+    role = discord.utils.get(ctx.guild.roles, name='Prisoner')
+    await member.add_roles(role)
+    embed = discord.Embed(description = f'{member.mention} has been Muted.\n**Reason:** {reason}', color = bot.color_code)
+    await ctx.send(embed = embed)
+
+@mute.error
+async def mute_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please Specify a User to Mute")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send("OOps! You don't have Permissions to That!")
+
+@bot.command(name = 'unmute', help = 'unmutes a Member')
+@commands.has_permissions(mute_members = True)
+async def mute(ctx, member: discord.Member):
+    if member == None or member == ctx.message.author:
+        await ctx.channel.send("You cannot Mute yourself!")
+        return
+    role = discord.utils.get(ctx.guild.roles, name='Prisoner')
+    await member.remove_roles(role)
+    embed = discord.Embed(description = f'{member.mention} has been Unmuted', color = bot.color_code)
+    await ctx.send(embed = embed)
+
+@unmute.error
+async def unmute_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please Specify a User to Unmute")
+    elif isinstance(error, commands.MissingPermissions):
+        await ctx.send("OOps! You don't have Permissions to That!")
+
 
 @bot.command(name = 'kick', help = 'kicks the user')
 @commands.has_permissions(kick_members = True)
