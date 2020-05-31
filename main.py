@@ -7,8 +7,9 @@ GUILD = os.environ['DISCORD_GUILD']
 WCI = os.environ['WELCOME_CHANNEL_ID']
 RCI = os.environ['RULES_CHANNEL_ID']
 GCI = os.environ['GENERAL_CHANNEL_ID']
+PREFIX = os.environ['COMMAND_PREFIX']
 
-bot = commands.Bot(command_prefix='0')
+bot = commands.Bot(command_prefix = str(PREFIX))
 bot.remove_command('help')
 
 bot.was_kick_ban = False
@@ -65,6 +66,7 @@ async def on_message_edit(before, after):
 @bot.command(name = 'help', help = 'Shows the help command')
 async def help(ctx, *, category = 'display'):
     guild = bot.get_guild(int(GUILD))
+    prefix = str(PREFIX)
 
     uti_embed = discord.Embed(title = 'Command Help', description = '**Utilities & Fun**', color = bot.color_code)
     uti_embed.add_field(name = 'avatar', value = 'Displays the Avatar of a User\nUsage: `0avatar <user>`', inline = False)
