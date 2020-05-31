@@ -119,7 +119,7 @@ async def avatar(ctx, member: discord.Member):
     embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
-@avatar.error()
+@avatar.error
 async def avatar_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         ctx.send('Please Specify a user!')
