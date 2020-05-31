@@ -202,7 +202,7 @@ async def mute_error(ctx, error):
 
 @bot.command(name = 'unmute', help = 'unmutes a Member')
 @commands.has_permissions(mute_members = True)
-async def mute(ctx, member: discord.Member):
+async def unmute(ctx, member: discord.Member):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot Mute yourself!")
         return
