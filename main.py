@@ -108,7 +108,7 @@ async def introduce(ctx):
     await ctx.send(response)
     print("Response sent....")
 
-@bot.command(name = 'ping', help = f'gives the latency of {bot.user.name}')
+@bot.command(name = 'ping', help = f'gives the latency of the Bot')
 async def ping(ctx):
     embed = discord.Embed(description = f'Pong {round(bot.latency * 1000)}ms', color = bot.color_code)
     await ctx.send(embed = embed)
