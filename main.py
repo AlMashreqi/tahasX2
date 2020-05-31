@@ -19,7 +19,7 @@ bot.ed_message = str()
 
 @bot.event
 async def on_ready():
-    print(f'{bot.user.name} has connected to Discord!') 
+    print(f'{bot.user.name} has connected to Discord!')
     await bot.change_presence(status = discord.Status.online, activity = discord.Game('15 Commands!'))
 
 @bot.event
@@ -114,10 +114,10 @@ async def ping(ctx):
 @bot.command(name = 'avatar', help = 'shows the avatar of a User')
 async def avatar(ctx, member: discord.Member):
     guild = bot.get_guild(int(GUILD))
-    avatar_embed = discord.Embed(color = bot.color_code)
-    avatar_embed.set_image(url = f'{member.avatar_url}')
+    embed = discord.Embed(color = bot.color_code)
+    embed.set_image(url = f'{member.avatar_url}')
     embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
-    await ctx.send(embed = avatar_embed)
+    await ctx.send(embed = embed)
 
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
 async def roll(ctx):
