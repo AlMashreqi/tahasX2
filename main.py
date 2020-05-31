@@ -12,7 +12,6 @@ PREFIX = os.environ['COMMAND_PREFIX']
 bot = commands.Bot(command_prefix = str(PREFIX))
 bot.remove_command('help')
 
-bot.was_kick_ban = False
 bot.color_code = 0x3333A2
 bot.del_message = str()
 bot.org_message = str()
@@ -42,17 +41,14 @@ async def on_member_join(member):
 
 @bot.event
 async def on_member_remove(member):
-    if not bot.was_kick_ban:
-        channel = bot.get_channel(int(GCI))
-        guild = bot.get_guild(int(GUILD))
-        embed = discord.Embed(title = f'**Thanks for being Here**', description = f'{member.mention} has Left the Server.\nIt was good having you here.\n\n**• Username: ** {member}\n**• ID:** {member.id}\n**• Server Members: ** {len(guild.members)}', color = bot.color_code)
-        embed.set_thumbnail(url = f'{member.avatar_url}')
-        embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
-        await channel.send(embed = embed)
-        print(f'Leave message sent for {member}.....')
-    else:
-        bot.was_kick_ban = False
-
+    channel = bot.get_channel(int(GCI))
+    guild = bot.get_guild(int(GUILD))
+    embed = discord.Embed(title = f'**Thanks for being Here**', description = f'{member.mention} has Left the Server.\nIt was good having you here.\n\n**• Username: ** {member}\n**• ID:** {member.id}\n**• Server Members: ** {len(guild.members)}', color = bot.color_code)
+    embed.set_thumbnail(url = f'{member.avatar_url}')
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    await channel.send(embed = embed)
+    print(f'Leave message sent for {member}.....')
+    
 @bot.event
 async def on_message_delete(message):
     bot.del_message = message
@@ -117,6 +113,7 @@ async def ping(ctx):
 async def avatar(ctx, member: discord.Member):
     avatar_embed = discord.Embed(color = bot.color_code)
     avatar_embed.set_image(url = f'{member.avatar_url}')
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = avatar_embed)
 
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
@@ -129,8 +126,8 @@ async def roll(ctx):
 @commands.has_permissions(manage_messages = True)
 async def delsnipe(ctx):
     message = bot.del_message
-    embed = discord.Embed(title = '**Last Deleted Message**', description = f'Deleted Message:\n```{message.content}```', color = bot.color_code)
-    embed.set_footer(text = f'Author: {message.author}', icon_url = message.author.avatar_url)
+    embed = discord.Embed(title = '**Last Deleted Message**', description = f'Deleted Message:\n```{message.content}```\nAuthor: {message.author}', color = bot.color_code)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @delsnipe.error
@@ -143,8 +140,8 @@ async def delsnipe_error(ctx, error):
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 @commands.has_permissions(manage_messages = True)
 async def editsnipe(ctx):
-    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message:\n```{bot.org_message.content}```\nEdited Message:\n```{bot.ed_message.content}```\n', color = bot.color_code)
-    embed.set_footer(text = f'Author: {bot.org_message.author}', icon_url = bot.org_message.author.avatar_url)
+    embed = discord.Embed(title = '**Last Edited Message**', description = f'Orignal Message:\n```{bot.org_message.content}```\nEdited Message:\n```{bot.ed_message.content}```\nAuthor: {bot.org_message.author}', color = bot.color_code)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @editsnipe.error
@@ -161,6 +158,7 @@ async def warn(ctx, member: discord.Member, *, reason = 'Unspecified'):
         await ctx.channel.send("You cannot Warn yourself!")
         return
     embed = discord.Embed(description = f'{member} has been Warned\n**Reason:** {reason}', color = bot.color_code)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @warn.error
@@ -191,6 +189,7 @@ async def mute(ctx, member: discord.Member, *, reason = 'Unspecified'):
     role = discord.utils.get(ctx.guild.roles, name='Prisoner')
     await member.add_roles(role)
     embed = discord.Embed(description = f'{member.mention} has been Muted.\n**Reason:** {reason}', color = bot.color_code)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @mute.error
@@ -209,6 +208,7 @@ async def unmute(ctx, member: discord.Member):
     role = discord.utils.get(ctx.guild.roles, name='Prisoner')
     await member.remove_roles(role)
     embed = discord.Embed(description = f'{member.mention} has been Unmuted', color = bot.color_code)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @unmute.error
@@ -225,10 +225,10 @@ async def kick(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot kick yourself!")
         return
-    bot.was_kick_ban = True
     await member.kick(reason=reason)
     channel = bot.get_channel(int(GCI))
     embed = discord.Embed(description = f'{member.mention} has been kicked from the Server\n**Reason:** {reason}', color = bot.color_code)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
     print(f'Kick message sent for {member}....')
 
@@ -245,10 +245,10 @@ async def ban(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot ban yourself")
         return
-    bot.was_kick_ban = True
     await member.ban(reason=reason)
     channel = bot.get_channel(int(GCI))
     embed = discord.Embed(description = f'{member.mention} has been banned from the Server\n**Reason:** {reason}', color = bot.color_code)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
     print(f'Ban message sent for {member}......')
 
@@ -269,6 +269,7 @@ async def unban(ctx, *, member):
         user = ban_entry.user
         if(user.name, user.discriminator) == (member_name, member_discriminator):
             embed = discord.Embed(description = f'{member_name}#{member_discriminator} has been Unbanned', color = bot.color_code)
+            embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
             await ctx.guild.unban(user)
             await ctx.send(embed = embed)
             print(f'Unbanned {user.mention}....')
