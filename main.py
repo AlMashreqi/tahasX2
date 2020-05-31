@@ -183,7 +183,7 @@ async def clear_error(ctx, error):
         await ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.command(name = 'mute', help = 'Mutes a Member')
-@commands.has_permissions(mute_members = True)
+@commands.has_permissions(kick_members = True)
 async def mute(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot Mute yourself!")
@@ -201,7 +201,7 @@ async def mute_error(ctx, error):
         await ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.command(name = 'unmute', help = 'unmutes a Member')
-@commands.has_permissions(mute_members = True)
+@commands.has_permissions(kick_members = True)
 async def unmute(ctx, member: discord.Member):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot Mute yourself!")
