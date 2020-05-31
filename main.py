@@ -84,7 +84,7 @@ async def help(ctx, *, category = 'display'):
     mod_embed.add_field(name = 'kick', value = 'Kicks out a user from the Server\nUsage: `0kick <user> [reason]`', inline = False)
     mod_embed.add_field(name = 'mute', value = 'Mutes the specified User\nUsage: `0mute <user> [reason]`', inline = False)
     mod_embed.add_field(name = 'unban', value = 'Unbans a Banned User\nUsage: `0unban <user>`', inline = False)
-    mod_embed.add_field(name = 'kick', value = 'Unmutes a muted user\nUsage: `0unmute <user>`', inline = False)
+    mod_embed.add_field(name = 'unmute', value = 'Unmutes a muted user\nUsage: `0unmute <user>`', inline = False)
     mod_embed.add_field(name = 'warn', value = 'Warns a User\nUsage: `0warn <user> [reason]`', inline = False)
     mod_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
