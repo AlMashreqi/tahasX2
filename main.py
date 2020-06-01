@@ -173,7 +173,6 @@ async def covid_error(ctx, error):
         embed = discord.Embed(title = f'COVID-19 Stats', description = f'**Country Not Found!**', color = bot.color_code)
         embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
 
-        await corona.request_client.close()  # close the ClientSession
         await ctx.send(embed = embed)
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
