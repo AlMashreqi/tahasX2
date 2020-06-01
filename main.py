@@ -51,7 +51,7 @@ async def on_member_remove(member):
     embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await channel.send(embed = embed)
     print(f'Leave message sent for {member}.....')
-    
+
 @bot.event
 async def on_message_delete(message):
     bot.del_message = message
@@ -74,7 +74,7 @@ async def help(ctx, *, category = 'display'):
     uti_embed.add_field(name = 'ping', value = f'Displays the Latency of the Bot\nUsage: `{prefix}ping`', inline = False)
     uti_embed.add_field(name = 'rd', value = f'Simulates rolling of Dice\nUsage: `{prefix}rd`', inline = False)
     uti_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
-    
+
     mod_embed = discord.Embed(title = 'Command Help', description = '**Moderation**', color = bot.color_code)
     mod_embed.add_field(name = 'ban', value = f'Bans a User from the Server\nUsage: `{prefix}ban <user> [reason]`', inline = False)
     mod_embed.add_field(name = 'clear', value = f'Clears last 5 Messages on Default\nUsage: `{prefix}clear <number-of-messages>`', inline = False)
@@ -90,7 +90,7 @@ async def help(ctx, *, category = 'display'):
     help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\n', color = bot.color_code)
     help_embed.add_field(name = '**Moderation**', value = f'`{prefix}help Mod`')
     help_embed.add_field(name = '**Utilities & Fun**', value = f'`{prefix}help Utils`')
-    help_embed.add_field(name='**COVID-19 Stats**', value=f'`{perfix}covid`')
+    help_embed.add_field(name='**COVID-19 Stats**', value=f'`{prefix}covid`')
     help_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
     if category == 'Mod':
@@ -151,7 +151,7 @@ async def covid(ctx):
     embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
 
     await ctx.send(embed = embed)
-    await client.request_client.close()  # close the ClientSession
+    await corona.request_client.close()  # close the ClientSession
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 @commands.has_permissions(manage_messages = True)
