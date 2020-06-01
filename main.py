@@ -237,6 +237,7 @@ async def warn_error(ctx, error):
 @bot.command(name = 'clear', help = 'Clears a certian amount')
 @commands.has_permissions(manage_messages = True)
 async def clear(ctx, amount = 5):
+    guild = bot.get_guild(int(GUILD))
     await ctx.channel.purge(limit = amount + 1)
     embed = discord.Embed(title='Messages Cleared', description = f'Cleared {amount} Messages', color = bot.color_code)
     embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
