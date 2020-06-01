@@ -104,6 +104,7 @@ async def help(ctx, *, category = 'display'):
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
+    guild = bot.get_guild(int(GUILD))
     embed = discord.Embed(title=f'I am {bot.user.name}!', description=f'Hello, I am {bot.user.name}, I was Created by Sauood#6924. I am a Multipurpose Bot having different Commands and Functionalities.\n I have Moderation, Utility and Fun Commands.\n\n**• Username: ** {bot.user}\n**• ID:** {bot.user.id}\n**• Programming Language: **Python', color=bot.color_code)
     embed.set_thumbnail(url=f'{bot.user.avatar_url}')
     embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
