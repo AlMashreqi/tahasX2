@@ -152,7 +152,6 @@ async def covid(ctx, country = 'default'):
         embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
 
         await ctx.send(embed = embed)
-        await corona.request_client.close()  # close the ClientSession
     else:
         data = await corona.get_country_data(country)
         embed = discord.Embed(title = f'COVID-19 Stats', description = f'**{country.title()}\'s COVID-19 Stats:**', color = bot.color_code)
@@ -165,7 +164,8 @@ async def covid(ctx, country = 'default'):
         embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
 
         await ctx.send(embed = embed)
-        await corona.request_client.close()  # close the ClientSession
+
+    await corona.request_client.close()  # close the ClientSession
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 @commands.has_permissions(manage_messages = True)
