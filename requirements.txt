@@ -1,2 +1,2 @@
 discord.py
-corona_api.py
+corona-api.py
