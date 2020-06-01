@@ -138,21 +138,34 @@ async def roll(ctx):
     print('Dice rolled....')
 
 @bot.command(name = 'covid', help = 'Shows the current COVID stats')
-async def covid(ctx):
+async def covid(ctx, country = 'default'):
     guild = bot.get_guild(int(GUILD))
-    data = await corona.all()  # get global data
+    if country == 'default':
+        data = await corona.all()  # get global data
+        embed = discord.Embed(title = 'COVID-19 Stats', description = '**Worldwide Stats:**', color = bot.color_code)
+        embed.add_field(name = '**Global Cases**', value = f'{data.cases}', inline = False)
+        embed.add_field(name = '**Global Deaths**', value=f'{data.deaths}', inline=False)
+        embed.add_field(name = '**Global Recoveries**', value=f'{data.recoveries}', inline=False)
+        embed.add_field(name='**Active Cases**', value=f'{data.active}', inline=False)
+        embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False)
+        embed.add_field(name='**Deaths Today**', value=f'{data.today_deaths}', inline=False)
+        embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
 
-    embed = discord.Embed(title = 'COVID-19 Stats', description = '**Worldwide Stats:**', color = bot.color_code)
-    embed.add_field(name = '**Global Cases**', value = f'{data.cases}', inline = False)
-    embed.add_field(name = '**Global Deaths**', value=f'{data.deaths}', inline=False)
-    embed.add_field(name = '**Global Recoveries**', value=f'{data.recoveries}', inline=False)
-    embed.add_field(name='**Active Cases**', value=f'{data.active}', inline=False)
-    embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False)
-    embed.add_field(name='**Deaths Today**', value=f'{data.today_deaths}', inline=False)
-    embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+        await ctx.send(embed = embed)
+        await corona.request_client.close()  # close the ClientSession
+    else:
+        data = await client.get_country_data(country)
+        embed = discord.Embed(title = f'COVID-19 Stats', description = f'**{country.title()}\'s COVID-19 Stats:**', color = bot.color_code)
+        embed.add_field(name = '**Total Cases**', value = f'{data.cases}', inline = False)
+        embed.add_field(name = '**Total Deaths**', value=f'{data.deaths}', inline=False)
+        embed.add_field(name = '**Total Recoveries**', value=f'{data.recoveries}', inline=False)
+        embed.add_field(name='**Active Cases**', value=f'{data.active}', inline=False)
+        embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False)
+        embed.add_field(name='**Deaths Today**', value=f'{data.today_deaths}', inline=False)
+        embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
 
-    await ctx.send(embed = embed)
-    await corona.request_client.close()  # close the ClientSession
+        await ctx.send(embed = embed)
+        await corona.request_client.close()  # close the ClientSession
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 @commands.has_permissions(manage_messages = True)
