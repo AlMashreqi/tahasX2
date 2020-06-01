@@ -136,7 +136,7 @@ async def roll(ctx):
     print('Dice rolled....')
 
 @bot.command(name = 'covid', help = 'Shows the current COVID stats')
-async def covid(ctx, country = 'default'):
+async def covid(ctx, *, country = 'default'):
     corona = corona_api.Client()
     guild = bot.get_guild(int(GUILD))
     if country == 'default':
