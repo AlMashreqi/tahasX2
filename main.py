@@ -1,6 +1,5 @@
 import os, random
-import discord
-#import corona_api
+import discord, corona_api
 
 from discord.ext import commands
 
@@ -14,7 +13,7 @@ PREFIX = os.environ['COMMAND_PREFIX']
 bot = commands.Bot(command_prefix = str(PREFIX))
 bot.remove_command('help')
 
-# corona = corona_api.Client()
+corona = corona_api.Client()
 
 bot.color_code = 0x3333A2
 bot.del_message = str()
@@ -37,7 +36,7 @@ async def on_command_error(ctx, error):
 async def on_member_join(member):
     channel = bot.get_channel(int(WCI))
     guild = bot.get_guild(int(GUILD))
-    embed = discord.Embed(title = f'**Welcome {member.name}**', description = f'{member.mention}, Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.\n\n**• Username: ** {member}\n**• ID:** {member.id}\n**• Server Members: ** {len(guild.members)}', color = bot.color_code)
+    embed = discord.Embed(title = f'Welcome {member.name}', description = f'{member.mention}, Be sure read the {bot.get_channel(int(RCI)).mention} and enjoy your stay.\n\n**• Username: ** {member}\n**• ID:** {member.id}\n**• Server Members: ** {len(guild.members)}', color = bot.color_code)
     embed.set_thumbnail(url = f'{member.avatar_url}')
     embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await channel.send(embed = embed)
@@ -47,7 +46,7 @@ async def on_member_join(member):
 async def on_member_remove(member):
     channel = bot.get_channel(int(GCI))
     guild = bot.get_guild(int(GUILD))
-    embed = discord.Embed(title = f'**Thanks for being Here**', description = f'{member.mention} has Left the Server.\nIt was good having you here.\n\n**• Username: ** {member}\n**• ID:** {member.id}\n**• Server Members: ** {len(guild.members)}', color = bot.color_code)
+    embed = discord.Embed(title = f'Thanks for being Here', description = f'{member.mention} has Left the Server.\nIt was good having you here.\n\n**• Username: ** {member}\n**• ID:** {member.id}\n**• Server Members: ** {len(guild.members)}', color = bot.color_code)
     embed.set_thumbnail(url = f'{member.avatar_url}')
     embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await channel.send(embed = embed)
@@ -105,8 +104,10 @@ async def help(ctx, *, category = 'display'):
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
-    response = f"Hey I am {bot.user.name}! I was created by Sauood. Written in Python"
-    await ctx.send(response)
+    embed = discord.Embed(title=f'I am {bot.user.name}!', description=f'Hello, I am {bot.user.name}, I was Created by Sauood#6924. I am a Multipurpose Bot having different Commands and Functionalities.\n I have Moderation, Utility and Fun Commands.\n\n**• Username: ** {bot.user}\n**• ID:** {bot.user.id}\n**• Programming Language: **Python', color=bot.color_code)
+    embed.set_thumbnail(url=f'{bot.user.avatar_url}')
+    embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+    await ctx.send(embed = embed)
     print("Response sent....")
 
 @bot.command(name = 'ping', help = f'gives the latency of the Bot')
@@ -135,21 +136,21 @@ async def roll(ctx):
     await ctx.send(', '.join(dice))
     print('Dice rolled....')
 
-# @bot.command(name = 'covid', help = 'Shows the current COVID stats')
-# async def covid(ctx):
-#     data = await corona.all()  # get global data
-#
-#     embed = discord.Embed(title = 'COVID-19 Stats', description = 'Worldwide Stats:', color = bot.color_code)
-#     embed.add_field(name = '**Global Cases**', value = f'{data.cases}', inline = False)
-#     embed.add_field(name = '**Global Deaths**', value=f'{data.deaths}', inline=False)
-#     embed.add_field(name = '**Global Recoveries**', value=f'{data.recoveries}', inline=False)
-#     embed.add_field(name='**Active Cases**', value=f'{data.active}', inline=False)
-#     embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False)
-#     embed.add_field(name='**Deaths Today**', value=f'{data.today_deaths}', inline=False)
-#     embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
-#
-#     await ctx.send(embed = embed)
-#     await client.request_client.close()  # close the ClientSession
+@bot.command(name = 'covid', help = 'Shows the current COVID stats')
+async def covid(ctx):
+    data = await corona.all()  # get global data
+
+    embed = discord.Embed(title = 'COVID-19 Stats', description = 'Worldwide Stats:', color = bot.color_code)
+    embed.add_field(name = '**Global Cases**', value = f'{data.cases}', inline = False)
+    embed.add_field(name = '**Global Deaths**', value=f'{data.deaths}', inline=False)
+    embed.add_field(name = '**Global Recoveries**', value=f'{data.recoveries}', inline=False)
+    embed.add_field(name='**Active Cases**', value=f'{data.active}', inline=False)
+    embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False)
+    embed.add_field(name='**Deaths Today**', value=f'{data.today_deaths}', inline=False)
+    embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+
+    await ctx.send(embed = embed)
+    await client.request_client.close()  # close the ClientSession
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 @commands.has_permissions(manage_messages = True)
