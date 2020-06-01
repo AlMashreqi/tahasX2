@@ -153,7 +153,15 @@ async def covid(ctx, *, country = 'default'):
         await ctx.send(embed = embed)
         await corona.request_client.close()  # close the ClientSession
     else:
-        data = await corona.get_country_data(country)
+        try:
+            data = await corona.get_country_data(country)
+        except:
+            embed = discord.Embed(title = f'COVID-19 Stats', description = f'**Country Not Found!**', color = bot.color_code)
+            embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+            await corona.request_client.close()
+            await ctx.send(embed = embed)
+            return
+
         embed = discord.Embed(title = f'COVID-19 Stats', description = f'**{country.title()}\'s COVID-19 Stats:**', color = bot.color_code)
         embed.add_field(name = '**Total Cases**', value = f'{data.cases}', inline = False)
         embed.add_field(name = '**Total Deaths**', value=f'{data.deaths}', inline=False)
@@ -168,14 +176,14 @@ async def covid(ctx, *, country = 'default'):
 
     
 
-@covid.error
-async def covid_error(ctx, error):
-    guild = bot.get_guild(int(GUILD))
-    if isinstance(error, Exception):
-        embed = discord.Embed(title = f'COVID-19 Stats', description = f'**Country Not Found!**', color = bot.color_code)
-        embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
-
-        await ctx.send(embed = embed)
+# @covid.error
+# async def covid_error(ctx, error):
+#     guild = bot.get_guild(int(GUILD))
+#     if isinstance(error, Exception):
+#         embed = discord.Embed(title = f'COVID-19 Stats', description = f'**Country Not Found!**', color = bot.color_code)
+#         embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+# 
+#         await ctx.send(embed = embed)
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 @commands.has_permissions(manage_messages = True)
