@@ -166,8 +166,8 @@ async def covid(ctx, *, country = 'default'):
 
     await corona.request_client.close()  # close the ClientSession
 
-@covid.error()
-async def covid_error():
+@covid.error
+async def covid_error(ctx, error):
     if isinstance(error, Exception):
         embed = discord.Embed(title = f'COVID-19 Stats', description = f'**Country Not Found!**', color = bot.color_code)
         embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
