@@ -90,7 +90,7 @@ async def help(ctx, *, category = 'display'):
     help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\n', color = bot.color_code)
     help_embed.add_field(name = '**Moderation**', value = f'`{prefix}help Mod`')
     help_embed.add_field(name = '**Utilities & Fun**', value = f'`{prefix}help Utils`')
-    help_embed.add_field(name='**COVID-19 Stats**', value=f'`{prefix}covid`', inline = False)
+    help_embed.add_field(name='**COVID-19 Stats**', value=f'`{prefix}covid [country]`', inline = False)
     help_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
     if category == 'Mod':
@@ -142,7 +142,7 @@ async def covid(ctx, country = 'default'):
     guild = bot.get_guild(int(GUILD))
     if country == 'default':
         data = await corona.all()  # get global data
-        embed = discord.Embed(title = 'COVID-19 Stats', description = 'Use `0covid <country> to get Country wide Stats`\n**Worldwide Stats:**', color = bot.color_code)
+        embed = discord.Embed(title = 'COVID-19 Stats', description = '**Worldwide Stats:**', color = bot.color_code)
         embed.add_field(name = '**Global Cases**', value = f'{data.cases}', inline = False)
         embed.add_field(name = '**Global Deaths**', value=f'{data.deaths}', inline=False)
         embed.add_field(name = '**Global Recoveries**', value=f'{data.recoveries}', inline=False)
