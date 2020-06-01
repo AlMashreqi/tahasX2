@@ -13,8 +13,6 @@ PREFIX = os.environ['COMMAND_PREFIX']
 bot = commands.Bot(command_prefix = str(PREFIX))
 bot.remove_command('help')
 
-corona = corona_api.Client()
-
 bot.color_code = 0x3333A2
 bot.del_message = str()
 bot.org_message = str()
@@ -139,6 +137,7 @@ async def roll(ctx):
 
 @bot.command(name = 'covid', help = 'Shows the current COVID stats')
 async def covid(ctx, country = 'default'):
+    corona = corona_api.Client()
     guild = bot.get_guild(int(GUILD))
     if country == 'default':
         data = await corona.all()  # get global data
