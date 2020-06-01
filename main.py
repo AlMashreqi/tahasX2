@@ -175,7 +175,7 @@ async def covid_error(ctx, error):
 
         await ctx.send(embed = embed)
 
-@bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
+@bot.command(name = 'delsnipe', help = 'Shows last Deleted Message') 
 @commands.has_permissions(manage_messages = True)
 async def delsnipe(ctx):
     guild = bot.get_guild(int(GUILD))
