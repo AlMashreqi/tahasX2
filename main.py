@@ -241,6 +241,7 @@ async def clear(ctx, amount = 5):
     await ctx.channel.purge(limit = amount + 1)
     embed = discord.Embed(title='Messages Cleared', description = f'Cleared {amount} Messages', color = bot.color_code)
     embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+    await ctx.send(embed = embed)
     print(f'{amount} messages Cleared')
 
 @clear.error
