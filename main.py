@@ -154,7 +154,7 @@ async def covid(ctx, country = 'default'):
         await ctx.send(embed = embed)
         await corona.request_client.close()  # close the ClientSession
     else:
-        data = await client.get_country_data(country)
+        data = await corona.get_country_data(country)
         embed = discord.Embed(title = f'COVID-19 Stats', description = f'**{country.title()}\'s COVID-19 Stats:**', color = bot.color_code)
         embed.add_field(name = '**Total Cases**', value = f'{data.cases}', inline = False)
         embed.add_field(name = '**Total Deaths**', value=f'{data.deaths}', inline=False)
