@@ -1,2 +1,2 @@
 discord.py
-corona_api.py
+https://github.com/apex2504/python-corona-api.git
