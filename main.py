@@ -141,7 +141,7 @@ async def covid(ctx):
     embed.add_field(name = '**Global Cases**', value = f'{data.cases}', inline = False)
     embed.add_field(name = '**Global Deaths**', value=f'{data.deaths}', inline=False)
     embed.add_field(name = '**Global Recoveries**', value=f'{data.recoveries}', inline=False)
-    embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False))
+    embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False)
     embed.add_field(name='**Deaths Today**', value=f'{data.today_deaths}', inline=False)
     embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
 
