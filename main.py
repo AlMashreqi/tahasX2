@@ -90,7 +90,7 @@ async def help(ctx, *, category = 'display'):
     help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\n', color = bot.color_code)
     help_embed.add_field(name = '**Moderation**', value = f'`{prefix}help Mod`')
     help_embed.add_field(name = '**Utilities & Fun**', value = f'`{prefix}help Utils`')
-    # help_embed.add_field(name='**COVID-19 Stats**', value=f'`{perfix}covid`')
+    help_embed.add_field(name='**COVID-19 Stats**', value=f'`{perfix}covid`')
     help_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
     if category == 'Mod':
@@ -138,6 +138,7 @@ async def roll(ctx):
 
 @bot.command(name = 'covid', help = 'Shows the current COVID stats')
 async def covid(ctx):
+    guild = bot.get_guild(int(GUILD))
     data = await corona.all()  # get global data
 
     embed = discord.Embed(title = 'COVID-19 Stats', description = 'Worldwide Stats:', color = bot.color_code)
