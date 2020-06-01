@@ -1,2 +1,2 @@
 discord.py
-corona_api.py
+corona_api.py == 0.8.8
