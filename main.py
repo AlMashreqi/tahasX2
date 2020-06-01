@@ -141,7 +141,7 @@ async def covid(ctx):
     guild = bot.get_guild(int(GUILD))
     data = await corona.all()  # get global data
 
-    embed = discord.Embed(title = 'COVID-19 Stats', description = 'Worldwide Stats:', color = bot.color_code)
+    embed = discord.Embed(title = 'COVID-19 Stats', description = '**Worldwide Stats:**', color = bot.color_code)
     embed.add_field(name = '**Global Cases**', value = f'{data.cases}', inline = False)
     embed.add_field(name = '**Global Deaths**', value=f'{data.deaths}', inline=False)
     embed.add_field(name = '**Global Recoveries**', value=f'{data.recoveries}', inline=False)
