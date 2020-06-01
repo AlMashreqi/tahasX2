@@ -1,5 +1,6 @@
 import os, random
-import corona_api, discord
+import discord
+#import corona_api
 
 from discord.ext import commands
 
@@ -13,7 +14,7 @@ PREFIX = os.environ['COMMAND_PREFIX']
 bot = commands.Bot(command_prefix = str(PREFIX))
 bot.remove_command('help')
 
-corona = corona_api.Client()
+# corona = corona_api.Client()
 
 bot.color_code = 0x3333A2
 bot.del_message = str()
@@ -23,7 +24,7 @@ bot.ed_message = str()
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
-    await bot.change_presence(status = discord.Status.online, activity = discord.Game('15 Commands!'))
+    await bot.change_presence(status = discord.Status.online, activity = discord.Game('17 Commands!'))
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -90,6 +91,7 @@ async def help(ctx, *, category = 'display'):
     help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\n', color = bot.color_code)
     help_embed.add_field(name = '**Moderation**', value = f'`{prefix}help Mod`')
     help_embed.add_field(name = '**Utilities & Fun**', value = f'`{prefix}help Utils`')
+    # help_embed.add_field(name='**COVID-19 Stats**', value=f'`{perfix}covid`')
     help_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
 
     if category == 'Mod':
@@ -133,20 +135,21 @@ async def roll(ctx):
     await ctx.send(', '.join(dice))
     print('Dice rolled....')
 
-@bot.command(name = 'covid', help = 'Shows the current COVID stats')
-async def covid(ctx):
-    data = await client.all()  # get global data
-
-    embed = discord.Embed(title = 'COVID-19 Stats', description = 'Worldwide Stats:', color = bot.color_code)
-    embed.add_field(name = '**Global Cases**', value = f'{data.cases}', inline = False)
-    embed.add_field(name = '**Global Deaths**', value=f'{data.deaths}', inline=False)
-    embed.add_field(name = '**Global Recoveries**', value=f'{data.recoveries}', inline=False)
-    embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False)
-    embed.add_field(name='**Deaths Today**', value=f'{data.today_deaths}', inline=False)
-    embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
-
-    await ctx.send(embed = embed)
-    await client.request_client.close()  # close the ClientSession
+# @bot.command(name = 'covid', help = 'Shows the current COVID stats')
+# async def covid(ctx):
+#     data = await corona.all()  # get global data
+#
+#     embed = discord.Embed(title = 'COVID-19 Stats', description = 'Worldwide Stats:', color = bot.color_code)
+#     embed.add_field(name = '**Global Cases**', value = f'{data.cases}', inline = False)
+#     embed.add_field(name = '**Global Deaths**', value=f'{data.deaths}', inline=False)
+#     embed.add_field(name = '**Global Recoveries**', value=f'{data.recoveries}', inline=False)
+#     embed.add_field(name='**Active Cases**', value=f'{data.active}', inline=False)
+#     embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False)
+#     embed.add_field(name='**Deaths Today**', value=f'{data.today_deaths}', inline=False)
+#     embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+#
+#     await ctx.send(embed = embed)
+#     await client.request_client.close()  # close the ClientSession
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 @commands.has_permissions(manage_messages = True)
