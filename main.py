@@ -366,7 +366,7 @@ async def unban_error(ctx, error):
         await ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.command(name = 'lockdown', help = 'Puts a Channel Under lockdown')
-@commands.bot_has_permissions(adminstrator = True)
+@commands.bot_has_permissions(administrator = True)
 async def lockdown(ctx):
     channel = bot.get_channel(bot.current_channel)
     await channel.set_permissions(ctx.guild.default_role, send_messages=False)
