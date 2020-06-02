@@ -30,10 +30,10 @@ async def on_message(message):
     bot.current_channel = message.channel.id
     # if message.content == f'{prefix}setup general':
 
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
-        await ctx.send("Woah! Command not Found!")
+# @bot.event
+# async def on_command_error(ctx, error):
+#    if isinstance(error, commands.CommandNotFound):
+#        await ctx.send("Woah! Command not Found!")
     else:
         await ctx.send(f'`{error}`')
 
@@ -368,8 +368,7 @@ async def unban_error(ctx, error):
 @bot.command(name = 'lockdown', help = 'Puts a Channel Under lockdown')
 @commands.bot_has_permissions(administrator = True)
 async def lockdown(ctx):
-    channel = bot.get_channel(bot.current_channel)
-    await channel.set_permissions(ctx.guild.default_role, send_messages=False)
+    await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=False)
     embed = discord.Embed(title = 'Channel Lockeddown',description = f'{channel.mention} has been put underlockdown', color = bot.color_code)
     embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
