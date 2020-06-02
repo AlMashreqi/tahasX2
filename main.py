@@ -17,11 +17,18 @@ bot.color_code = 0x3333A2
 bot.del_message = str()
 bot.org_message = str()
 bot.ed_message = str()
+bot.current_channel = int()
 
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
     await bot.change_presence(status = discord.Status.online, activity = discord.Game('17 Commands!'))
+
+@bot.event
+async def on_message(message):
+    prefix = str(PREFIX)
+    bot.current_channel = message.channel.id
+    # if message.content == f'{prefix}setup general':
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -357,6 +364,15 @@ async def unban_error(ctx, error):
         await ctx.send("Please Specify a User to Unban!")
     elif isinstance(error, commands.MissingPermissions):
         await ctx.send("OOps! You don't have Permissions to That!")
+
+@bot.command(name = 'lockdown', help = 'Puts a Channel Under lockdown')
+@commands.bot_has_permissions(adminstrator = True)
+async def lockdown(ctx):
+    channel = bot.get_channel(bot.current_channel)
+    await channel.set_permissions(ctx.guild.default_role, send_messages=False)
+    embed = discord.Embed(title = 'Channel Lockeddown',description = f'{channel.mention} has been put underlockdown', color = bot.color_code)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    await ctx.send(embed = embed)
 
 # @bot.event
 # async def on_error(event, *args, **kwargs):
