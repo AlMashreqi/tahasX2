@@ -347,7 +347,7 @@ async def unban_error(ctx, error):
         await ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.command(name = 'lockdown', help = 'Puts a Channel Under lockdown')
-@commands.bot_has_permissions(administrator = True)
+@commands.has_permissions(administrator = True)
 async def lockdown(ctx):
     await ctx.channel.set_permissions(ctx.guild.default_role, send_messages = False)
     embed = discord.Embed(title = ':lock: Channel Locked Down :lock:',description = f'{ctx.channel.mention} has been put under Lockdown', color = bot.color_code)
@@ -360,7 +360,7 @@ async def lockdown_error(ctx, error):
         await ctx.send("OOps! You don't have Permissions to That!")
 
 @bot.command(name = 'unlock', help = 'Puts a Channel Under lockdown')
-@commands.bot_has_permissions(administrator = True)
+@commands.has_permissions(administrator = True)
 async def unlock(ctx):
     await ctx.channel.set_permissions(ctx.guild.default_role, send_messages = True)
     embed = discord.Embed(title = ':unlock: Channel Unlocked :unlock:',description = f'{ctx.channel.mention} has been Unlocked', color = bot.color_code)
