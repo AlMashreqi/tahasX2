@@ -347,13 +347,26 @@ async def unban_error(ctx, error):
 @bot.command(name = 'lockdown', help = 'Puts a Channel Under lockdown')
 @commands.bot_has_permissions(administrator = True)
 async def lockdown(ctx):
-    await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=False)
+    await ctx.channel.set_permissions(ctx.guild.default_role, send_messages = False)
     embed = discord.Embed(title = 'Channel Locked Down',description = f':lock: {ctx.channel.mention} has been put under Lockdown :lock:', color = bot.color_code)
     embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @lockdown.error
 async def lockdown_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("OOps! You don't have Permissions to That!")
+
+@bot.command(name = 'unlock', help = 'Puts a Channel Under lockdown')
+@commands.bot_has_permissions(administrator = True)
+async def unlock(ctx):
+    await ctx.channel.set_permissions(ctx.guild.default_role, send_messages = True)
+    embed = discord.Embed(title = 'Channel Unlocked',description = f':unlock: {ctx.channel.mention} has been Unlocked :unlock:', color = bot.color_code)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
+    await ctx.send(embed = embed)
+
+@unlock.error
+async def unlock_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.send("OOps! You don't have Permissions to That!")
 
