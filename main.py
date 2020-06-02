@@ -22,7 +22,7 @@ bot.ed_message = str()
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
-    await bot.change_presence(status = discord.Status.online, activity = discord.Game('17 Commands!'))
+    await bot.change_presence(status = discord.Status.online, activity = discord.Game('19 Commands!'))
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -79,8 +79,10 @@ async def help(ctx, *, category = 'display'):
     mod_embed.add_field(name = 'delsnipe', value = f'Displays the Last Deleted Message\nUsage: `{prefix}delsnipe`', inline = False)
     mod_embed.add_field(name = 'editsnipe', value = f'Displays the Last Edited Message with Orignal Content\nUsage: `{prefix}editsnipe`', inline = False)
     mod_embed.add_field(name = 'kick', value = f'Kicks out a user from the Server\nUsage: `{prefix}kick <user> [reason]`', inline = False)
+    mod_embed.add_field(name = 'lockdown', value = f'Puts the current channel under Lockdown\nUsage: `{prefix}lockdown`', inline = False)
     mod_embed.add_field(name = 'mute', value = f'Mutes the specified User\nUsage: `{prefix}mute <user> [reason]`', inline = False)
     mod_embed.add_field(name = 'unban', value = f'Unbans a Banned User\nUsage: `{prefix}unban <user>`', inline = False)
+    mod_embed.add_field(name = 'lockdown', value = f'Puts the current channel under Lockdown\nUsage: `{prefix}lockdown`', inline = False)
     mod_embed.add_field(name = 'unmute', value = f'Unmutes a muted user\nUsage: `{prefix}unmute <user>`', inline = False)
     mod_embed.add_field(name = 'warn', value = f'Warns a User\nUsage: `{prefix}warn <user> [reason]`', inline = False)
     mod_embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
