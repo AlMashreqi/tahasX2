@@ -12,7 +12,7 @@ PREFIX = os.environ['COMMAND_PREFIX']
 
 bot = commands.Bot(command_prefix = str(PREFIX))
 bot.remove_command('help')
- 
+
 bot.color_code = 0x3333A2
 bot.del_message = str()
 bot.org_message = str()
