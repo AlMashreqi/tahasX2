@@ -369,7 +369,7 @@ async def unban_error(ctx, error):
 @commands.bot_has_permissions(administrator = True)
 async def lockdown(ctx):
     await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=False)
-    embed = discord.Embed(title = 'Channel Lockeddown',description = f'{channel.mention} has been put underlockdown', color = bot.color_code)
+    embed = discord.Embed(title = 'Channel Lockeddown',description = f'{ctx.channel.mention} has been put underlockdown', color = bot.color_code)
     embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
