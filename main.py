@@ -17,25 +17,19 @@ bot.color_code = 0x3333A2
 bot.del_message = str()
 bot.org_message = str()
 bot.ed_message = str()
-# bot.current_channel = int()
+
 
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
     await bot.change_presence(status = discord.Status.online, activity = discord.Game('17 Commands!'))
 
-# @bot.event
-# async def on_message(message):
-#     prefix = str(PREFIX)
-#     bot.current_channel = message.channel.id
-#     # if message.content == f'{prefix}setup general':
-
-# @bot.event
-# async def on_command_error(ctx, error):
-#    if isinstance(error, commands.CommandNotFound):
-#        await ctx.send("Woah! Command not Found!")
-#    else:
-#        await ctx.send(f'`{error}`')
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send("Woah! Command not Found!")
+    else:
+        await ctx.send(f'`{error}`')
 
 @bot.event
 async def on_member_join(member):
@@ -69,7 +63,6 @@ async def on_message_edit(before, after):
 
 @bot.command(name = 'help', help = 'Shows the help command')
 async def help(ctx, *, category = 'display'):
-    guild = bot.get_guild(int(GUILD))
     prefix = str(PREFIX)
 
     uti_embed = discord.Embed(title = 'Help Command', description = '**Utilities & Fun**', color = bot.color_code)
@@ -78,7 +71,7 @@ async def help(ctx, *, category = 'display'):
     uti_embed.add_field(name = 'introduce', value = f'Displays the Introduction of the Bot\nUsage: `{prefix}introduce`', inline = False)
     uti_embed.add_field(name = 'ping', value = f'Displays the Latency of the Bot\nUsage: `{prefix}ping`', inline = False)
     uti_embed.add_field(name = 'rd', value = f'Simulates rolling of Dice\nUsage: `{prefix}rd`', inline = False)
-    uti_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    uti_embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
 
     mod_embed = discord.Embed(title = 'Command Help', description = '**Moderation**', color = bot.color_code)
     mod_embed.add_field(name = 'ban', value = f'Bans a User from the Server\nUsage: `{prefix}ban <user> [reason]`', inline = False)
@@ -90,13 +83,13 @@ async def help(ctx, *, category = 'display'):
     mod_embed.add_field(name = 'unban', value = f'Unbans a Banned User\nUsage: `{prefix}unban <user>`', inline = False)
     mod_embed.add_field(name = 'unmute', value = f'Unmutes a muted user\nUsage: `{prefix}unmute <user>`', inline = False)
     mod_embed.add_field(name = 'warn', value = f'Warns a User\nUsage: `{prefix}warn <user> [reason]`', inline = False)
-    mod_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    mod_embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
 
     help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\n', color = bot.color_code)
     help_embed.add_field(name = '**Moderation**', value = f'`{prefix}help Mod`')
     help_embed.add_field(name = '**Utilities & Fun**', value = f'`{prefix}help Utils`')
     help_embed.add_field(name='**COVID-19 Stats**', value=f'`{prefix}covid [country]`', inline = False)
-    help_embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    help_embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
 
     if category == 'Mod':
         await ctx.send(embed = mod_embed)
@@ -109,26 +102,23 @@ async def help(ctx, *, category = 'display'):
 
 @bot.command(name = 'introduce', help = 'Responds with Intoduction')
 async def introduce(ctx):
-    guild = bot.get_guild(int(GUILD))
     embed = discord.Embed(title=f'I am {bot.user.name}!', description=f'Hello, I am {bot.user.name}, I was Created by Sauood#6924. I am a Multipurpose Bot having different Commands and Functionalities.\n I have Moderation, Utility and Fun Commands.\n\n**• Username: ** {bot.user}\n**• ID:** {bot.user.id}\n**• Programming Language: **Python', color=bot.color_code)
     embed.set_thumbnail(url=f'{bot.user.avatar_url}')
-    embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+    embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
     await ctx.send(embed = embed)
     print("Response sent....")
 
 @bot.command(name = 'ping', help = f'gives the latency of the Bot')
 async def ping(ctx):
-    guild = bot.get_guild(int(GUILD))
     embed = discord.Embed(description = f'Pong {round(bot.latency * 1000)}ms', color = bot.color_code)
-    embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+    embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @bot.command(name = 'avatar', help = 'shows the avatar of a User')
 async def avatar(ctx, member: discord.Member):
-    guild = bot.get_guild(int(GUILD))
     embed = discord.Embed(color = bot.color_code)
     embed.set_image(url = f'{member.avatar_url}')
-    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @avatar.error
@@ -145,7 +135,6 @@ async def roll(ctx):
 @bot.command(name = 'covid', help = 'Shows the current COVID stats')
 async def covid(ctx, *, country = 'default'):
     corona = corona_api.Client()
-    guild = bot.get_guild(int(GUILD))
     if country == 'default':
         data = await corona.all()  # get global data
         embed = discord.Embed(title = 'COVID-19 Stats', description = '**Worldwide Stats:**', color = bot.color_code)
@@ -155,7 +144,7 @@ async def covid(ctx, *, country = 'default'):
         embed.add_field(name='**Active Cases**', value=f'{data.active}', inline=False)
         embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False)
         embed.add_field(name='**Deaths Today**', value=f'{data.today_deaths}', inline=False)
-        embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+        embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
 
         await ctx.send(embed = embed)
         await corona.request_client.close()  # close the ClientSession
@@ -164,7 +153,7 @@ async def covid(ctx, *, country = 'default'):
             data = await corona.get_country_data(country)
         except:
             embed = discord.Embed(title = f'COVID-19 Stats', description = f'**Country Not Found!**', color = bot.color_code)
-            embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+            embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
             await corona.request_client.close()
             await ctx.send(embed = embed)
             return
@@ -176,7 +165,7 @@ async def covid(ctx, *, country = 'default'):
         embed.add_field(name='**Active Cases**', value=f'{data.active}', inline=False)
         embed.add_field(name = '**Cases Today**', value=f'{data.today_cases}', inline=False)
         embed.add_field(name='**Deaths Today**', value=f'{data.today_deaths}', inline=False)
-        embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+        embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
 
         await ctx.send(embed = embed)
         await corona.request_client.close()  # close the ClientSession
@@ -185,20 +174,18 @@ async def covid(ctx, *, country = 'default'):
 
 # @covid.error
 # async def covid_error(ctx, error):
-#     guild = bot.get_guild(int(GUILD))
 #     if isinstance(error, Exception):
 #         embed = discord.Embed(title = f'COVID-19 Stats', description = f'**Country Not Found!**', color = bot.color_code)
-#         embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+#         embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
 # 
 #         await ctx.send(embed = embed)
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 @commands.has_permissions(manage_messages = True)
 async def delsnipe(ctx):
-    guild = bot.get_guild(int(GUILD))
     message = bot.del_message
     embed = discord.Embed(title = 'Last Deleted Message', description = f'Deleted Message:\n```{message.content}```\nAuthor: {message.author}', color = bot.color_code)
-    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @delsnipe.error
@@ -211,9 +198,8 @@ async def delsnipe_error(ctx, error):
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 @commands.has_permissions(manage_messages = True)
 async def editsnipe(ctx):
-    guild = bot.get_guild(int(GUILD))
     embed = discord.Embed(title = 'Last Edited Message', description = f'Orignal Message:\n```{bot.org_message.content}```\nEdited Message:\n```{bot.ed_message.content}```\nAuthor: {bot.org_message.author}', color = bot.color_code)
-    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @editsnipe.error
@@ -226,12 +212,11 @@ async def editsnipe_error(ctx, error):
 @bot.command(name = 'warn', help = 'Warns the Specified User')
 @commands.has_permissions(kick_members = True)
 async def warn(ctx, member: discord.Member, *, reason = 'Unspecified'):
-    guild = bot.get_guild(int(GUILD))
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot Warn yourself!")
         return
     embed = discord.Embed(title = 'User Warned',description = f'{member} has been Warned\n**Reason:** {reason}', color = bot.color_code)
-    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @warn.error
@@ -244,10 +229,9 @@ async def warn_error(ctx, error):
 @bot.command(name = 'clear', help = 'Clears a certian amount')
 @commands.has_permissions(manage_messages = True)
 async def clear(ctx, amount = 5):
-    guild = bot.get_guild(int(GUILD))
     await ctx.channel.purge(limit = amount + 1)
     embed = discord.Embed(title='Messages Cleared', description = f'Cleared {amount} Messages', color = bot.color_code)
-    embed.set_footer(text=f'© {bot.user.name} | Owned by {guild.owner}', icon_url=bot.user.avatar_url)
+    embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
     await ctx.send(embed = embed)
     print(f'{amount} messages Cleared')
 
@@ -262,11 +246,10 @@ async def mute(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot Mute yourself!")
         return
-    guild = bot.get_guild(int(GUILD))
     role = discord.utils.get(ctx.guild.roles, name='Prisoner')
     await member.add_roles(role)
     embed = discord.Embed(title = 'User Muted',description = f'{member.mention} has been Muted.\n**Reason:** {reason}', color = bot.color_code)
-    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @mute.error
@@ -282,11 +265,10 @@ async def unmute(ctx, member: discord.Member):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot Mute yourself!")
         return
-    guild = bot.get_guild(int(GUILD))
     role = discord.utils.get(ctx.guild.roles, name='Prisoner')
     await member.remove_roles(role)
     embed = discord.Embed(title = 'User Unmuted',description = f'{member.mention} has been Unmuted', color = bot.color_code)
-    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
 @unmute.error
@@ -303,11 +285,10 @@ async def kick(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot kick yourself!")
         return
-    guild = bot.get_guild(int(GUILD))
     await member.kick(reason=reason)
     channel = bot.get_channel(int(GCI))
     embed = discord.Embed(title = 'User Kicked',description = f'{member.mention} has been kicked from the Server\n**Reason:** {reason}', color = bot.color_code)
-    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
     print(f'Kick message sent for {member}....')
 
@@ -324,11 +305,10 @@ async def ban(ctx, member: discord.Member, *, reason = 'Unspecified'):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot ban yourself")
         return
-    guild = bot.get_guild(int(GUILD))
     await member.ban(reason=reason)
     channel = bot.get_channel(int(GCI))
     embed = discord.Embed(title = 'User Banned',description = f'{member.mention} has been banned from the Server\n**Reason:** {reason}', color = bot.color_code)
-    embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+    embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
     print(f'Ban message sent for {member}......')
 
@@ -342,7 +322,6 @@ async def ban_error(ctx, error):
 @bot.command(name = 'unban', help = 'unbans a banned user')
 @commands.has_permissions(ban_members=True)
 async def unban(ctx, *, member):
-    guild = bot.get_guild(int(GUILD))
     banned_users = await ctx.guild.bans()
     member_name, member_discriminator = member.split('#')
 
@@ -350,7 +329,7 @@ async def unban(ctx, *, member):
         user = ban_entry.user
         if(user.name, user.discriminator) == (member_name, member_discriminator):
             embed = discord.Embed(title = 'User Unbanned',description = f'{member_name}#{member_discriminator} has been Unbanned', color = bot.color_code)
-            embed.set_footer(text = f'© {bot.user.name} | Owned by {guild.owner}', icon_url = bot.user.avatar_url)
+            embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
             await ctx.guild.unban(user)
             await ctx.send(embed = embed)
             print(f'Unbanned {user.mention}....')
@@ -369,9 +348,14 @@ async def unban_error(ctx, error):
 @commands.bot_has_permissions(administrator = True)
 async def lockdown(ctx):
     await ctx.channel.set_permissions(ctx.guild.default_role, send_messages=False)
-    embed = discord.Embed(title = 'Channel Lockeddown',description = f'{ctx.channel.mention} has been put underlockdown', color = bot.color_code)
+    embed = discord.Embed(title = 'Channel Locked Down',description = f'{ctx.channel.mention} has been put underlockdown', color = bot.color_code)
     embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
+
+@lockdown.error
+async def lockdown_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("OOps! You don't have Permissions to That!")
 
 # @bot.event
 # async def on_error(event, *args, **kwargs):
