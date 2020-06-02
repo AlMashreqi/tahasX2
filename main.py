@@ -17,25 +17,25 @@ bot.color_code = 0x3333A2
 bot.del_message = str()
 bot.org_message = str()
 bot.ed_message = str()
-bot.current_channel = int()
+# bot.current_channel = int()
 
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
     await bot.change_presence(status = discord.Status.online, activity = discord.Game('17 Commands!'))
 
-@bot.event
-async def on_message(message):
-    prefix = str(PREFIX)
-    bot.current_channel = message.channel.id
-    # if message.content == f'{prefix}setup general':
+# @bot.event
+# async def on_message(message):
+#     prefix = str(PREFIX)
+#     bot.current_channel = message.channel.id
+#     # if message.content == f'{prefix}setup general':
 
 # @bot.event
 # async def on_command_error(ctx, error):
 #    if isinstance(error, commands.CommandNotFound):
 #        await ctx.send("Woah! Command not Found!")
-#     else:
-#         await ctx.send(f'`{error}`')
+#    else:
+#        await ctx.send(f'`{error}`')
 
 @bot.event
 async def on_member_join(member):
