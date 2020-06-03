@@ -134,6 +134,32 @@ async def roll(ctx):
     await ctx.send(', '.join(dice))
     print('Dice rolled....')
 
+@bot.command(name = '8ball', help = 'Asks 8 Ball a Question')
+async def _8ball(ctx, *, question):
+    responses =['As I see it, yes.',
+                'Ask again later.',
+                'Better not tell you now.',
+                'Cannot predict now.',
+                'Concentrate and ask again.',
+                'Don’t count on it.',
+                'It is certain.',
+                'It is decidedly so.',
+                'Most likely.',
+                'My reply is no.',
+                'My sources say no.',
+                'Outlook not so good.',
+                'Outlook good.',
+                'Reply hazy, try again.',
+                'Signs point to yes.',
+                'Very doubtful.',
+                'Without a doubt.',
+                'Yes.',
+                'Yes – definitely.',
+                'You may rely on it.']
+    embed = discord.Embed(Name = '8 Ball', description = f'**Question:** {question}\n**Answer:** {random.choice(responses)}')
+    embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
+    await ctx.send(embed = embed)
+
 @bot.command(name = 'covid', help = 'Shows the current COVID stats')
 async def covid(ctx, *, country = 'default'):
     corona = corona_api.Client()
@@ -172,14 +198,14 @@ async def covid(ctx, *, country = 'default'):
         await ctx.send(embed = embed)
         await corona.request_client.close()  # close the ClientSession
 
-    
+
 
 # @covid.error
 # async def covid_error(ctx, error):
 #     if isinstance(error, Exception):
 #         embed = discord.Embed(title = f'COVID-19 Stats', description = f'**Country Not Found!**', color = bot.color_code)
 #         embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
-# 
+#
 #         await ctx.send(embed = embed)
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
