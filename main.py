@@ -70,18 +70,19 @@ async def on_message_edit(before, after):
     if before.author.bot:
         return
 
-    message_id = message.channel.id
+    message_id = before.channel.id
+    message2_id = after.channel.id
 
     if before.content != after.content:
         bot.org_message.setdefault(message.channel.id, [])
         bot.ed_message.setdefault(message.channel.id, [])
 
-        if len(bot.org_message[message_id]) > 40 and len(bot.edit_message[message_id]) > 40:
+        if len(bot.org_message[message_id]) > 40 and len(bot.ed_message[message2_id]) > 40:
             del bot.org_message[message_id][0]
-            del bot.ed_message[message_id][0]
+            del bot.ed_message[message2_id][0]
 
         bot.org_message[message_id].append(before)
-        bot.ed_message[message_id].append(after)
+        bot.ed_message[message2_id].append(after)
 
 @bot.command(name = 'help', help = 'Shows the help command')
 async def help(ctx, *, category = 'display'):
