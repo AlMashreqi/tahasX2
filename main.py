@@ -161,7 +161,7 @@ async def avatar_error(ctx, error):
 
 @bot.command(name = 'userinfo', help = f'Gives the info of the user')
 async def userinfo(ctx, member: discord.Member):
-    if member is:
+    if member is None:
         member = ctx.author
     roles = [role for role in member.roles]
 
