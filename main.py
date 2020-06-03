@@ -65,14 +65,17 @@ async def on_message_edit(before, after):
 async def help(ctx, *, category = 'display'):
     prefix = str(PREFIX)
 
-    uti_embed = discord.Embed(title = 'Help Command', description = '**Utilities & Fun**', color = bot.color_code)
-    uti_embed.add_field(name='8ball', value=f'Asks 8Ball your Question\nUsage: `{prefix}8ball <question>`', inline = False)
+    uti_embed = discord.Embed(title = 'Help Command', description = '**Utilities**', color = bot.color_code)
     uti_embed.add_field(name = 'avatar', value = f'Displays the Avatar of a User\nUsage: `{prefix}avatar <user>`', inline = False)
     uti_embed.add_field(name = 'help', value = f'Shows this Menu\nUsage: `{prefix}help`', inline = False)
     uti_embed.add_field(name = 'introduce', value = f'Displays the Introduction of the Bot\nUsage: `{prefix}introduce`', inline = False)
     uti_embed.add_field(name = 'ping', value = f'Displays the Latency of the Bot\nUsage: `{prefix}ping`', inline = False)
-    uti_embed.add_field(name = 'rd', value = f'Simulates rolling of Dice\nUsage: `{prefix}rd`', inline = False)
     uti_embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
+
+    fun_embed = discord.Embed(title='Help Command', description='**Fun & Games**', color=bot.color_code)
+    fun_embed.add_field(name='8ball', value=f'Asks 8Ball your Question\nUsage: `{prefix}8ball <question>`', inline=False)
+    fun_embed.add_field(name='rd', value=f'Simulates rolling of Dice\nUsage: `{prefix}rd`', inline=False)
+    fun_embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
 
     mod_embed = discord.Embed(title = 'Command Help', description = '**Moderation**', color = bot.color_code)
     mod_embed.add_field(name = 'ban', value = f'Bans a User from the Server\nUsage: `{prefix}ban <user> [reason]`', inline = False)
@@ -90,14 +93,17 @@ async def help(ctx, *, category = 'display'):
 
     help_embed = discord.Embed(title = 'Help Command', description = '**Categories**\n', color = bot.color_code)
     help_embed.add_field(name = '**Moderation**', value = f'`{prefix}help Mod`')
-    help_embed.add_field(name = '**Utilities & Fun**', value = f'`{prefix}help Utils`')
-    help_embed.add_field(name='**COVID-19 Stats**', value=f'`{prefix}covid [country]`', inline = False)
+    help_embed.add_field(name = '**Fun & Games**', value f'`{prefix}help Fun`')
+    help_embed.add_field(name = '**Utilities**', value = f'`{prefix}help Utils`')
+    help_embed.add_field(name='**COVID-19 Stats**', value=f'`{prefix}covid [country]`')
     help_embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
 
     if category == 'Mod':
         await ctx.send(embed = mod_embed)
     elif category == 'Utils':
         await ctx.send(embed = uti_embed)
+    elif category == 'Fun':
+        await  ctx.send(embed = fun_embed)
     elif category == 'display':
         await ctx.send(embed = help_embed)
     else:
