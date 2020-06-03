@@ -162,8 +162,7 @@ async def avatar_error(ctx, error):
 async def userinfo(ctx, member = 'default'):
     if member == 'default':
         member = ctx.author
-    else:
-        member: discord.Member
+    member: discord.Member
 
     roles = [role for role in member.roles]
 
