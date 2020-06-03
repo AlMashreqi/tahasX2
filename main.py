@@ -156,7 +156,7 @@ async def _8ball(ctx, *, question):
                 'Yes.',
                 'Yes – definitely.',
                 'You may rely on it.']
-    embed = discord.Embed(Name = '8 Ball', description = f'**Question:** {question}\n**Answer:** {random.choice(responses)}')
+    embed = discord.Embed(title = '8 Ball', description = f'**Question:** {question}\n**Answer:** {random.choice(responses)}')
     embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
     await ctx.send(embed = embed)
 
