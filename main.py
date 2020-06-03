@@ -264,7 +264,7 @@ async def delsnipe_error(ctx, error):
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 @commands.has_permissions(manage_messages = True)
 async def editsnipe(ctx, num = 1):
-    if ctx.channel.id not in bot.edit_message:
+    if ctx.channel.id not in bot.ed_message:
         await ctx.send('Nothing to snipe')
         return
     message = bot.org_message[ctx.channel.id][-num]
