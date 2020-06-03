@@ -161,6 +161,8 @@ async def avatar_error(ctx, error):
 
 @bot.command(name = 'userinfo', help = f'Gives the info of the user')
 async def userinfo(ctx, member: discord.Member):
+    if is member:
+        member = ctx.author
     roles = [role for role in member.roles]
 
     embed = discord.Embed(title = 'User Info', description = f'**{member.name}\'s Info**', color = bot.color_code, timestamp = ctx.message.created_at)
