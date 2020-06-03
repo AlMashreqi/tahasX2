@@ -15,8 +15,8 @@ bot.remove_command('help')
 
 bot.color_code = 0x3333A2
 bot.del_message = {}
-bot.org_message = str()
-bot.ed_message = str()
+bot.org_message = {}
+bot.ed_message = {}
 
 
 @bot.event
@@ -55,19 +55,33 @@ async def on_member_remove(member):
 async def on_message_delete(message):
     if message.author.bot:
         return
+
     message_id = message.channel.id
+
     bot.del_message.setdefault(message.channel.id, [])
+
     if len(bot.del_message[message_id]) > 40:
         del bot.del_message[message_id][0]
+
     bot.del_message[message_id].append(message)
 
 @bot.event
 async def on_message_edit(before, after):
     if message.author.bot:
         return
+
+    message_id = message.channel.id
+
     if before.content != after.content:
-        bot.org_message = before
-        bot.ed_message = after
+        bot.org_message.setdefault(message.channel.id, [])
+        bot.ed_message.setdefault(message.channel.id, [])
+
+        if len(bot.org_message[message_id]) > 40 and len(bot.edit_message[message_id]) > 40:
+            del bot.org_message[message_id][0]
+            del bot.ed_message[message_id][0]
+
+        bot.org_message[message_id].append(before)
+        bot.ed_message[message_id].append(after)
 
 @bot.command(name = 'help', help = 'Shows the help command')
 async def help(ctx, *, category = 'display'):
@@ -248,8 +262,13 @@ async def delsnipe_error(ctx, error):
 
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 @commands.has_permissions(manage_messages = True)
-async def editsnipe(ctx):
-    embed = discord.Embed(title = 'Last Edited Message', description = f'Orignal Message:\n```{bot.org_message.content}```\nEdited Message:\n```{bot.ed_message.content}```\nAuthor: {bot.org_message.author}', color = bot.color_code)
+async def editsnipe(ctx, num = 1):
+    if ctx.channel.id not in bot.del_message:
+        await ctx.send('Nothing to snipe')
+        return
+    message = bot.org_message[ctx.channel.id][-num]
+    message2 = bot.ed_message[ctx.channel.id][-num]
+    embed = discord.Embed(title = 'Last Edited Message', description = f'Orignal Message:\n```{message.content}```\nEdited Message:\n```{message2.content}```\nAuthor: {message.author}', color = bot.color_code)
     embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
 
