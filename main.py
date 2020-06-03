@@ -67,7 +67,7 @@ async def on_message_delete(message):
 
 @bot.event
 async def on_message_edit(before, after):
-    if message.author.bot:
+    if before.author.bot:
         return
 
     message_id = message.channel.id
@@ -263,7 +263,7 @@ async def delsnipe_error(ctx, error):
 @bot.command(name = 'editsnipe', help = 'Shows last Edited Message')
 @commands.has_permissions(manage_messages = True)
 async def editsnipe(ctx, num = 1):
-    if ctx.channel.id not in bot.del_message:
+    if ctx.channel.id not in bot.edit_message:
         await ctx.send('Nothing to snipe')
         return
     message = bot.org_message[ctx.channel.id][-num]
