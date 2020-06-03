@@ -126,7 +126,7 @@ async def avatar(ctx, member: discord.Member):
 @avatar.error
 async def avatar_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        ctx.send('Please Specify a user!')
+        await ctx.send('Please Specify a user!')
 
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
 async def roll(ctx):
@@ -163,7 +163,7 @@ async def _8ball(ctx, *, question):
 @_8ball.error
 async def _8ball_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        ctx.send('Please ask a Question!')
+        await ctx.send('Please ask a Question!')
 
 @bot.command(name = 'covid', help = 'Shows the current COVID stats')
 async def covid(ctx, *, country = 'default'):
