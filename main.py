@@ -159,7 +159,7 @@ async def avatar_error(ctx, error):
         await ctx.send('Please Specify a user!')
 
 @bot.command(name = 'userinfo', help = f'Gives the info of the user')
-async def userinfo(ctx, member = 'default'):
+async def userinfo(ctx, *,member = 'default'):
     if member == 'default':
         member = ctx.author
     member: discord.Member
