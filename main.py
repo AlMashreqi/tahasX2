@@ -66,6 +66,7 @@ async def help(ctx, *, category = 'display'):
     prefix = str(PREFIX)
 
     uti_embed = discord.Embed(title = 'Help Command', description = '**Utilities & Fun**', color = bot.color_code)
+    uti_embed.add_field(name='8ball', value=f'Asks 8Ball your Question\nUsage: `{prefix}8ball <question>`, inline=False)
     uti_embed.add_field(name = 'avatar', value = f'Displays the Avatar of a User\nUsage: `{prefix}avatar <user>`', inline = False)
     uti_embed.add_field(name = 'help', value = f'Shows this Menu\nUsage: `{prefix}help`', inline = False)
     uti_embed.add_field(name = 'introduce', value = f'Displays the Introduction of the Bot\nUsage: `{prefix}introduce`', inline = False)
