@@ -89,11 +89,11 @@ async def help(ctx, *, category = 'display'):
     prefix = str(PREFIX)
 
     uti_embed = discord.Embed(title = 'Help Command', description = '**Utilities**', color = bot.color_code,timestamp = ctx.message.created_at)
-    uti_embed.add_field(name = 'avatar', value = f'Displays the Avatar of a User\nUsage: `{prefix}avatar <user>`', inline = False)
+    uti_embed.add_field(name = 'avatar', value = f'Displays the Avatar of a User\nUsage: `{prefix}avatar [user]`', inline = False)
     uti_embed.add_field(name = 'help', value = f'Shows this Menu\nUsage: `{prefix}help`', inline = False)
     uti_embed.add_field(name = 'introduce', value = f'Displays the Introduction of the Bot\nUsage: `{prefix}introduce`', inline = False)
     uti_embed.add_field(name = 'ping', value = f'Displays the Latency of the Bot\nUsage: `{prefix}ping`', inline = False)
-    uti_embed.add_field(name='userinfo', value=f'Displays the User\'s Info\nUsage: `{prefix}userinfo <user>`', inline=False)
+    uti_embed.add_field(name='userinfo', value=f'Displays the User\'s Info\nUsage: `{prefix}userinfo [user]`', inline=False)
     uti_embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
 
     fun_embed = discord.Embed(title='Help Command', description='**Fun & Games**', color=bot.color_code,timestamp = ctx.message.created_at)
@@ -148,7 +148,9 @@ async def ping(ctx):
     await ctx.send(embed = embed)
 
 @bot.command(name = 'avatar', help = 'shows the avatar of a User')
-async def avatar(ctx, member: discord.Member):
+async def avatar(ctx, member: discord.Member == None):
+    if member is None:
+        member = ctx.message.author
     embed = discord.Embed(color = bot.color_code,timestamp = ctx.message.created_at)
     embed.set_image(url = f'{member.avatar_url}')
     embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
@@ -160,8 +162,8 @@ async def avatar_error(ctx, error):
         await ctx.send('Please Specify a user!')
 
 @bot.command(name = 'userinfo', help = f'Gives the info of the user')
-async def userinfo(ctx, member: discord.Member):
-    if member == None:
+async def userinfo(ctx, member: discord.Member == None):
+    if member is None:
         member = ctx.message.author
     roles = [role for role in member.roles]
 
