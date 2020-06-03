@@ -22,7 +22,7 @@ bot.ed_message = {}
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
-    await bot.change_presence(status = discord.Status.online, activity = discord.Game('22 Commands!'))
+    await bot.change_presence(status = discord.Status.online, activity = discord.Game('23 Commands!'))
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -471,3 +471,5 @@ async def unlock_error(ctx, error):
 #             raise
 
 bot.run(TOKEN)
+
+                 
