@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix = str(PREFIX))
 bot.remove_command('help')
 
 bot.color_code = 0x3333A2
-bot.del_message = str()
+bot.del_message = {}
 bot.org_message = str()
 bot.ed_message = str()
 
@@ -53,10 +53,17 @@ async def on_member_remove(member):
 
 @bot.event
 async def on_message_delete(message):
-    bot.del_message = message
+    if message.author.bot:
+        return
+    bot.del_message.setdefault(message.channel.id, [])
+    if len(bot.del_message[message_id]) > 40:
+    del bot.del_message[message_id][0]
+    bot.del_message[message_id].append(message)
 
 @bot.event
 async def on_message_edit(before, after):
+    if message.author.bot:
+        return
     if before.content != after.content:
         bot.org_message = before
         bot.ed_message = after
@@ -222,8 +229,11 @@ async def covid(ctx, *, country = 'default'):
 
 @bot.command(name = 'delsnipe', help = 'Shows last Deleted Message')
 @commands.has_permissions(manage_messages = True)
-async def delsnipe(ctx):
-    message = bot.del_message
+async def delsnipe(ctx, num = 1):
+    if ctx.channel.id not in bot.del_message:
+        await ctx.send('Nothing to snipe')
+        return
+    message = bot.del_message[ctx.channel.id][-num]
     embed = discord.Embed(title = 'Last Deleted Message', description = f'Deleted Message:\n```{message.content}```\nAuthor: {message.author}', color = bot.color_code)
     embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
     await ctx.send(embed = embed)
