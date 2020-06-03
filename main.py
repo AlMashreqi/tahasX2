@@ -160,7 +160,7 @@ async def avatar_error(ctx, error):
         await ctx.send('Please Specify a user!')
 
 @bot.command(name = 'userinfo', help = f'Gives the info of the user')
-async def userinfo(ctx, member = discord.Member):
+async def userinfo(ctx, member: discord.Member):
     roles = [role for role in member.roles]
 
     embed = discord.Embed(title = 'User Info', description = f'**{member.name}\'s Info**', color = bot.color_code, timestamp = ctx.message.created_at)
