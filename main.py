@@ -74,8 +74,8 @@ async def on_message_edit(before, after):
     message2_id = after.channel.id
 
     if before.content != after.content:
-        bot.org_message.setdefault(message.channel.id, [])
-        bot.ed_message.setdefault(message.channel.id, [])
+        bot.org_message.setdefault(before.channel.id, [])
+        bot.ed_message.setdefault(after.channel.id, [])
 
         if len(bot.org_message[message_id]) > 40 and len(bot.ed_message[message2_id]) > 40:
             del bot.org_message[message_id][0]
