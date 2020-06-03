@@ -158,6 +158,16 @@ async def avatar_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Please Specify a user!')
 
+@bot.command(name = 'yt')
+async def yt(ctx, url):
+
+    author = ctx.message.author
+    voice_channel = author.voice_channel
+    vc = await client.join_voice_channel(voice_channel)
+
+    player = await vc.create_ytdl_player(url)
+    player.start()
+
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
 async def roll(ctx):
     dice = str(random.choice(range(1, 7)))
