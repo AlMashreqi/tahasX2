@@ -57,7 +57,7 @@ async def on_message_delete(message):
         return
     bot.del_message.setdefault(message.channel.id, [])
     if len(bot.del_message[message_id]) > 40:
-    del bot.del_message[message_id][0]
+        del bot.del_message[message_id][0]
     bot.del_message[message_id].append(message)
 
 @bot.event
