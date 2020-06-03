@@ -87,7 +87,7 @@ async def help(ctx, *, category = 'display'):
     mod_embed.add_field(name = 'warn', value = f'Warns a User\nUsage: `{prefix}warn <user> [reason]`', inline = False)
     mod_embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
 
-    help_embed = discord.Embed(title = 'Command Help', description = '**Categories**\n', color = bot.color_code)
+    help_embed = discord.Embed(title = 'Help Command', description = '**Categories**\n', color = bot.color_code)
     help_embed.add_field(name = '**Moderation**', value = f'`{prefix}help Mod`')
     help_embed.add_field(name = '**Utilities & Fun**', value = f'`{prefix}help Utils`')
     help_embed.add_field(name='**COVID-19 Stats**', value=f'`{prefix}covid [country]`', inline = False)
