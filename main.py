@@ -148,7 +148,7 @@ async def ping(ctx):
     await ctx.send(embed = embed)
 
 @bot.command(name = 'avatar', help = 'shows the avatar of a User')
-async def avatar(ctx, member: discord.Member == None):
+async def avatar(ctx, member: discord.Member = None):
     if member is None:
         member = ctx.message.author
     embed = discord.Embed(color = bot.color_code,timestamp = ctx.message.created_at)
@@ -162,7 +162,7 @@ async def avatar_error(ctx, error):
         await ctx.send('Please Specify a user!')
 
 @bot.command(name = 'userinfo', help = f'Gives the info of the user')
-async def userinfo(ctx, member: discord.Member == None):
+async def userinfo(ctx, member: discord.Member = None):
     if member is None:
         member = ctx.message.author
     roles = [role for role in member.roles]
