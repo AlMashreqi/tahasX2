@@ -160,6 +160,11 @@ async def _8ball(ctx, *, question):
     embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
     await ctx.send(embed = embed)
 
+@avatar.error
+async def _8ball_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        ctx.send('Please ask a Question!')
+
 @bot.command(name = 'covid', help = 'Shows the current COVID stats')
 async def covid(ctx, *, country = 'default'):
     corona = corona_api.Client()
