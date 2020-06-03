@@ -55,10 +55,11 @@ async def on_member_remove(member):
 async def on_message_delete(message):
     if message.author.bot:
         return
+    message_id = message.channel.id
     bot.del_message.setdefault(message.channel.id, [])
     if len(bot.del_message[message_id]) > 40:
         del bot.del_message[message_id][0]
-        bot.del_message[message_id].append(message)
+    bot.del_message[message_id].append(message)
 
 @bot.event
 async def on_message_edit(before, after):
