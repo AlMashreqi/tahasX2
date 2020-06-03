@@ -22,7 +22,7 @@ bot.ed_message = str()
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
-    await bot.change_presence(status = discord.Status.online, activity = discord.Game('19 Commands!'))
+    await bot.change_presence(status = discord.Status.online, activity = discord.Game('22 Commands!'))
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -66,7 +66,7 @@ async def help(ctx, *, category = 'display'):
     prefix = str(PREFIX)
 
     uti_embed = discord.Embed(title = 'Help Command', description = '**Utilities & Fun**', color = bot.color_code)
-    uti_embed.add_field(name='8ball', value=f'Asks 8Ball your Question\nUsage: `{prefix}8ball <question>`, inline=False)
+    uti_embed.add_field(name='8ball', value=f'Asks 8Ball your Question\nUsage: `{prefix}8ball <question>`', inline = False)
     uti_embed.add_field(name = 'avatar', value = f'Displays the Avatar of a User\nUsage: `{prefix}avatar <user>`', inline = False)
     uti_embed.add_field(name = 'help', value = f'Shows this Menu\nUsage: `{prefix}help`', inline = False)
     uti_embed.add_field(name = 'introduce', value = f'Displays the Introduction of the Bot\nUsage: `{prefix}introduce`', inline = False)
