@@ -163,7 +163,7 @@ async def userinfo(ctx, member: discord.Member):
     roles = [role for role in member.roles]
 
     embed = discord.Embed(title = 'User Info', description = f'**{member.name}\'s Info**', color = bot.color_code)
-    embed.set_thumbnail(member.avatar_url)
+    embed.set_thumbnail(url = member.avatar_url)
     embed.add_field(name='Username', value=f'{member}', inline=True)
     embed.add_field(name='Guild Name', value=f'{member.guild}', inline=True)
     embed.add_field(name='Roles', value="".join([role.mention for role in roles]), inline=True)
