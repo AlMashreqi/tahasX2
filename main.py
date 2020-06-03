@@ -158,15 +158,21 @@ async def avatar_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Please Specify a user!')
 
-@bot.command(name = 'yt')
-async def yt(ctx, url):
+@bot.command(name = 'userinfo', help = f'Gives the info of the user')
+async def userinfo(ctx, member: discord.Member):
+    roles = [role for role in member.roles]
 
-    author = ctx.message.author
-    voice_channel = author.voice_channel
-    vc = await client.join_voice_channel(voice_channel)
+    embed = discord.Embed(title = 'User Info', description = f'**{member.name}\'s Info**', color = bot.color_code)
+    embed.set_thumbnail(member.avatar_url)
+    embed.add_field(name='Username', value=f'{member}', inline=True)
+    embed.add_field(name='Guild Name', value=f'{member.guild}', inline=True)
+    embed.add_field(name='Roles', value="".join([role.mention for role in roles]), inline=True)
+    embed.add_field(name='Bot', value=f'{member.bot}',inline=True)
+    embed.add_field(name='Joined Discord At:', value=f'{member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC")}', inline=False)
+    embed.add_field(name='Joined Server At:', value=f'{member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC")}',inline=False)
+    embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
 
-    player = await vc.create_ytdl_player(url)
-    player.start()
+    await ctx.send(embed = embed)
 
 @bot.command(name = 'rd', help = 'simulates rolling of Dice')
 async def roll(ctx):
