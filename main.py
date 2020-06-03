@@ -160,7 +160,7 @@ async def _8ball(ctx, *, question):
     embed.set_footer(text=f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url=bot.user.avatar_url)
     await ctx.send(embed = embed)
 
-@avatar.error
+@_8ball.error
 async def _8ball_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         ctx.send('Please ask a Question!')
