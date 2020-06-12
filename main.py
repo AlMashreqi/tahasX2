@@ -110,7 +110,7 @@ async def help(ctx, *, category = 'display'):
     mod_embed.add_field(name = 'lockdown', value = f'Puts the current channel under Lockdown\nUsage: `{prefix}lockdown`', inline = False)
     mod_embed.add_field(name = 'mute', value = f'Mutes the specified User\nUsage: `{prefix}mute <user> [reason]`', inline = False)
     mod_embed.add_field(name = 'unban', value = f'Unbans a Banned User\nUsage: `{prefix}unban <user>`', inline = False)
-    mod_embed.add_field(name = 'lockdown', value = f'Puts the current channel under Lockdown\nUsage: `{prefix}lockdown`', inline = False)
+    mod_embed.add_field(name = 'unlock', value = f'Unlocks the Current Channel\nUsage: `{prefix}unlock`', inline = False)
     mod_embed.add_field(name = 'unmute', value = f'Unmutes a muted user\nUsage: `{prefix}unmute <user>`', inline = False)
     mod_embed.add_field(name = 'warn', value = f'Warns a User\nUsage: `{prefix}warn <user> [reason]`', inline = False)
     mod_embed.set_footer(text = f'© {bot.user.name} | Owned by {ctx.guild.owner}', icon_url = bot.user.avatar_url)
@@ -471,5 +471,3 @@ async def unlock_error(ctx, error):
 #             raise
 
 bot.run(TOKEN)
-
-                 
