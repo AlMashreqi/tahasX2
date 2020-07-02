@@ -9,5 +9,6 @@ Python 3.7,
 discord.py,
 corona_api.py
 
-You can Host the Bot on Heroku. I have Already included the Proc File, If you want to host it yourself, Use a .env File
+You can Host the Bot on Heroku. I have Already included the Proc File, If you want to host it yourself, Use a .env File.
+
 **Check My Discord Server: https://discord.gg/QcfwNgq**
